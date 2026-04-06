@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Anmol Gupta — AI, Software & Product Engineer building at early-stage startups. Distributed pipelines, LLM agents, and products from zero to one." />
+  <meta property="og:title" content="Meet Anmol — AI · Software · Product Engineer" />
+  <meta property="og:description" content="Building AI-driven systems at early-stage startups." />
   <title>Meet Anmol — AI · Software · Product Engineer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,7 +15,7 @@
     :root{
       --bg:#0a0a0a;
       --fg:#f0f0f0;
-      --dim:#555;
+      --dim:#999;
       --accent:#4f46e5;
       --accent2:#a855f7;
       --radius:12px;
@@ -29,6 +32,30 @@
     a{color:inherit;text-decoration:none;cursor:none}
     img{max-width:100%;display:block}
     ::selection{background:rgba(79,70,229,0.3)}
+
+    /* ═══ LOADER ═══ */
+    .loader{
+      position:fixed;inset:0;z-index:10000;
+      background:var(--bg);
+      display:flex;align-items:center;justify-content:center;
+      pointer-events:none;
+    }
+    .loader-name{
+      font-size:clamp(24px,4vw,48px);
+      font-weight:700;
+      letter-spacing:-0.04em;
+      opacity:0;
+    }
+
+    /* ═══ FILM GRAIN ═══ */
+    .grain{
+      position:fixed;inset:0;z-index:9998;
+      pointer-events:none;
+      opacity:0.035;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      background-repeat:repeat;
+      background-size:256px 256px;
+    }
 
     /* ═══ CUSTOM CURSOR ═══ */
     .cursor{
@@ -64,7 +91,12 @@
       position:fixed;top:0;left:0;right:0;z-index:100;
       display:flex;justify-content:space-between;align-items:center;
       padding:20px 48px;
-      mix-blend-mode:difference;
+      transition:background 0.4s, backdrop-filter 0.4s;
+    }
+    nav.scrolled{
+      background:rgba(10,10,10,0.75);
+      backdrop-filter:blur(16px);
+      -webkit-backdrop-filter:blur(16px);
     }
     .nav-name{font-size:14px;font-weight:700;letter-spacing:-0.02em}
     .nav-right{display:flex;gap:28px;align-items:center}
@@ -79,11 +111,20 @@
       transition:border-color 0.3s, background 0.3s;
     }
     .nav-cta:hover{border-color:var(--fg);background:rgba(255,255,255,0.05)}
+    .nav-book{
+      opacity:1!important;
+      font-size:12px!important;font-weight:600!important;
+      padding:8px 18px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      border-radius:980px;
+      transition:opacity 0.3s, transform 0.3s;
+    }
+    .nav-book:hover{opacity:0.85;transform:translateY(-1px)}
 
     /* ═══ SHADER CANVAS ═══ */
     #shader-bg{
       position:fixed;inset:0;z-index:0;
-      opacity:0.4;
+      opacity:0.55;
       pointer-events:none;
     }
 
@@ -214,7 +255,9 @@
       overflow:hidden;
       position:relative;
       background:#141414;
+      border:1px solid rgba(255,255,255,0.06);
     }
+    .proj-img a{display:block;width:100%;height:100%}
     .proj-img img{
       width:100%;
       display:block;
@@ -229,6 +272,7 @@
       position:absolute;bottom:0;left:0;right:0;
       padding:32px;
       background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);
+      pointer-events:none;
     }
     .proj-overlay .label{
       font-size:11px;font-weight:600;
@@ -265,7 +309,7 @@
     .exp-row:first-child{border-top:1px solid rgba(255,255,255,0.06)}
     .exp-company{font-size:18px;font-weight:600;letter-spacing:-0.01em}
     .exp-role{font-size:14px;color:var(--dim);margin-top:2px}
-    .exp-desc{font-size:13px;color:rgba(255,255,255,0.3);margin-top:8px;line-height:1.6;max-width:480px}
+    .exp-desc{font-size:13px;color:rgba(255,255,255,0.55);margin-top:8px;line-height:1.6;max-width:480px}
     .exp-date{font-size:13px;color:var(--dim);text-align:right;white-space:nowrap}
 
     /* ═══ SKILLS CLOUD ═══ */
@@ -320,7 +364,7 @@
     .edu-row:first-child{border-top:1px solid rgba(255,255,255,0.06)}
     .edu-school{font-size:17px;font-weight:600}
     .edu-deg{font-size:14px;color:var(--dim);margin-top:2px}
-    .edu-yr{font-size:12px;color:rgba(255,255,255,0.25);margin-top:2px}
+    .edu-yr{font-size:12px;color:rgba(255,255,255,0.35);margin-top:2px}
 
     /* ═══ CONTACT ═══ */
     .contact{
@@ -352,28 +396,109 @@
       transition:border-color 0.3s,background 0.3s;
     }
     .contact-row a:hover{border-color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.03)}
+    .contact-row .book-cta{
+      border-color:var(--accent);
+      background:linear-gradient(135deg,rgba(79,70,229,0.12),rgba(168,85,247,0.12));
+    }
+    .contact-row .book-cta:hover{
+      border-color:var(--accent2);
+      background:linear-gradient(135deg,rgba(79,70,229,0.2),rgba(168,85,247,0.2));
+    }
 
     /* ═══ FOOTER ═══ */
     footer{
       padding:24px 48px;
       font-size:12px;
-      color:rgba(255,255,255,0.2);
+      color:rgba(255,255,255,0.25);
       border-top:1px solid rgba(255,255,255,0.04);
     }
 
     /* ═══ RESPONSIVE ═══ */
+    /* ═══ TABLET ═══ */
+    @media(max-width:1024px){
+      nav{padding:18px 32px}
+      .hero{padding:0 32px}
+      .section-head{padding:100px 32px 60px}
+      .projects{padding:0 32px 100px}
+      .experience,.education,.about-section,.skills-section,.contact{padding-left:32px;padding-right:32px}
+    }
+
+    /* ═══ MOBILE ═══ */
     @media(max-width:768px){
-      nav{padding:16px 20px}
-      .nav-right a:not(.nav-cta){display:none}
-      .hero{padding:0 20px}
-      .hero-scroll{left:20px}
-      .section-head{padding:100px 20px 60px}
-      .projects{padding:0 20px 100px}
-      .project{grid-template-columns:1fr;min-height:50vh}
-      .experience,.education,.about-section,.skills-section,.contact{padding-left:20px;padding-right:20px}
-      .contact-row{flex-direction:column}
+      nav{padding:14px 20px}
+      .nav-right{gap:14px}
+      .nav-right a:not(.nav-cta):not(.nav-book){display:none}
+      .nav-cta{padding:6px 14px;font-size:11px!important}
+      .nav-book{padding:6px 14px;font-size:11px!important}
+
+      .hero{padding:0 20px;min-height:90vh}
+      .hero h1{font-size:clamp(40px,12vw,72px)}
+      .hero-sub{font-size:16px;margin-top:20px}
+      .hero-ctas{flex-direction:column;gap:12px;margin-top:28px}
+      .btn-main,.btn-ghost{width:100%;justify-content:center;padding:14px 24px;font-size:14px}
+      .hero-scroll{left:20px;bottom:24px}
+
+      .marquee{padding:40px 0}
+      .marquee-track{gap:40px}
+      .marquee-track span{font-size:14px}
+
+      .section-head{padding:80px 20px 40px}
+      .section-head h2{font-size:clamp(28px,8vw,40px)}
+
+      .projects{padding:0 20px 80px}
+      .project{grid-template-columns:1fr;gap:16px;margin-bottom:16px}
+      .proj-overlay{padding:20px}
+      .proj-overlay h3{font-size:20px}
+      .proj-overlay .desc{font-size:13px;margin-top:4px}
+
+      .experience{padding:0 20px 80px;max-width:100%}
+      .exp-row{grid-template-columns:1fr;gap:4px}
+      .exp-date{text-align:left;font-size:12px;order:-1;color:rgba(255,255,255,0.35)}
+      .exp-company{font-size:16px}
+      .exp-desc{font-size:12px;max-width:100%}
+
+      .skills-section{padding:0 20px 80px}
+      .skills-cloud span{font-size:12px;padding:8px 14px}
+
+      .about-section{padding:80px 20px}
+      .about-inner{max-width:100%}
+      .about-inner h2{font-size:clamp(24px,6vw,32px)}
+      .about-inner p{font-size:15px}
+
+      .education{padding:0 20px 80px;max-width:100%}
+
+      .contact{padding:80px 20px}
+      .contact h2{font-size:clamp(32px,10vw,56px)}
+      .contact-row{flex-direction:column;gap:12px}
+      .contact-row a{text-align:center}
+
+      footer{padding:20px}
+
       .cursor,.cursor-dot{display:none}
       body{cursor:auto}
+      a{cursor:auto}
+    }
+
+    /* ═══ SMALL MOBILE ═══ */
+    @media(max-width:380px){
+      nav{padding:12px 16px}
+      .nav-right{gap:8px}
+      .hero{padding:0 16px}
+      .hero h1{font-size:36px}
+      .section-head,.projects,.experience,.education,.about-section,.skills-section,.contact{padding-left:16px;padding-right:16px}
+    }
+
+    /* ═══ REDUCED MOTION ═══ */
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{
+        animation-duration:0.01ms!important;
+        animation-iteration-count:1!important;
+        transition-duration:0.01ms!important;
+        scroll-behavior:auto!important;
+      }
+      .hero h1 .line-inner{transform:translateY(0)!important}
+      #shader-bg{display:none}
+      .grain{display:none}
     }
 
     /* ═══ Placeholder ═══ */
@@ -387,6 +512,14 @@
 </head>
 <body>
 
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <span class="loader-name">meet-anmol</span>
+</div>
+
+<!-- GRAIN OVERLAY -->
+<div class="grain"></div>
+
 <!-- CURSOR -->
 <div class="cursor" id="cursor"></div>
 <div class="cursor-dot" id="cursor-dot"></div>
@@ -395,7 +528,7 @@
 <canvas id="shader-bg"></canvas>
 
 <!-- NAV -->
-<nav>
+<nav id="mainNav">
   <span class="nav-name">meet-anmol</span>
   <div class="nav-right">
     <a href="#work">Work</a>
@@ -403,6 +536,7 @@
     <a href="#about">About</a>
     <a href="#contact">Contact</a>
     <a href="images/Anmol_Gupta_CV.pdf" class="nav-cta" download>Resume</a>
+    <a href="https://tinyurl.com/collab-with-anmol" target="_blank" class="nav-book">Book a Slot</a>
   </div>
 </nav>
 
@@ -418,8 +552,8 @@
     </h1>
     <p class="hero-sub">Building AI-driven systems at early-stage startups. Distributed pipelines, LLM agents, and products — from zero to one.</p>
     <div class="hero-ctas">
-      <a href="#work" class="btn-main">View Work</a>
-      <a href="images/Anmol_Gupta_CV.pdf" class="btn-ghost" download>
+      <a href="#work" class="btn-main magnetic">View Work</a>
+      <a href="images/Anmol_Gupta_CV.pdf" class="btn-ghost magnetic" download>
         Download CV
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 2v8"/><path d="M3 7l4 4 4-4"/></svg>
       </a>
@@ -459,7 +593,9 @@
       <!-- Row 1: Yolgen + StoresData -->
       <div class="project">
         <div class="proj-img">
-          <img src="images/yolgen.png" alt="Yolgen" />
+          <a href="https://yolgen.com" target="_blank">
+            <img src="images/yolgen.png" alt="Yolgen — AI-driven hiring simulations" loading="lazy" />
+          </a>
           <div class="proj-overlay">
             <div class="label">2025 — Present · AI Hiring</div>
             <h3>Yolgen</h3>
@@ -467,7 +603,9 @@
           </div>
         </div>
         <div class="proj-img">
-          <img src="images/storesdata.png" alt="StoresData" />
+          <a href="https://storesdata.com" target="_blank">
+            <img src="images/storesdata.png" alt="StoresData — Ecommerce intelligence platform" loading="lazy" />
+          </a>
           <div class="proj-overlay">
             <div class="label">2025 · Ecommerce Intelligence</div>
             <h3>StoresData</h3>
@@ -479,7 +617,9 @@
       <!-- Row 2: Arka + Zign -->
       <div class="project">
         <div class="proj-img">
-          <img src="images/arka.png" alt="Arka" />
+          <a href="#contact">
+            <img src="images/arka.png" alt="Arka — Legal tech AI contract analysis" loading="lazy" />
+          </a>
           <div class="proj-overlay">
             <div class="label">2025 — Present · Legal Tech AI</div>
             <h3>Arka</h3>
@@ -487,7 +627,9 @@
           </div>
         </div>
         <div class="proj-img">
-          <img src="images/zign.png" alt="Zign" />
+          <a href="#contact">
+            <img src="images/zign.png" alt="Zign — AI-guided document signing" loading="lazy" />
+          </a>
           <div class="proj-overlay">
             <div class="label">2025 · Document Signing</div>
             <h3>Zign</h3>
@@ -496,17 +638,7 @@
         </div>
       </div>
 
-      <!-- Row 3: Fanoos -->
-      <div class="project">
-        <div class="proj-img">
-          <img src="images/fanoos.png" alt="Fanoos Ensemble" />
-          <div class="proj-overlay">
-            <div class="label">Ongoing · Music</div>
-            <h3>Fanoos Ensemble</h3>
-            <div class="desc">Digital presence for musicians redefining Afghan music.</div>
-          </div>
-        </div>
-      </div>
+      <!-- Row 3 removed -->
     </div>
   </div>
 
@@ -517,7 +649,7 @@
       <div>
         <div class="exp-company">Stealth Startup(s)</div>
         <div class="exp-role">Founding Engineer · Multiple AI Ventures</div>
-        <div class="exp-desc">Founding engineer across several early-stage AI bets — hiring intelligence, legal tech, document processing, video generation.</div>
+        <div class="exp-desc">Building 0→1 across several early-stage AI bets — shipping hiring intelligence, legal-tech contract analysis, and document signing products from first commit to production.</div>
       </div>
       <div class="exp-date">2025 —</div>
     </div>
@@ -525,15 +657,15 @@
       <div>
         <div class="exp-company">StoresData</div>
         <div class="exp-role">Founding Software Engineer</div>
-        <div class="exp-desc">Built founding infrastructure — distributed workers, event-driven pipelines, AI agents processing 5M+ Shopify stores.</div>
+        <div class="exp-desc">Boosted data ingestion throughput 25% by architecting event-driven pipelines with Inngest, processing 5M+ Shopify stores. Cut storage costs 50% via S3 blob migration and Gzip compression. Enabled 500+ concurrent store scans with parallel workers and exponential backoff.</div>
       </div>
-      <div class="exp-date">2025</div>
+      <div class="exp-date">2024 —</div>
     </div>
     <div class="exp-row">
       <div>
         <div class="exp-company">Sundial</div>
         <div class="exp-role">Founding Software Engineer</div>
-        <div class="exp-desc">Technical foundation from zero. LLMs, high-throughput backend with Spring Boot and RabbitMQ.</div>
+        <div class="exp-desc">Achieved 30% faster async processing by architecting a high-performance backend with Java Spring Boot and RabbitMQ. Deployed Cloud SQL, VPC networks on GCP — boosting data processing efficiency 40%. Delivered an AI assistant for solar installation code comprehension.</div>
       </div>
       <div class="exp-date">2023 — 2024</div>
     </div>
@@ -541,7 +673,7 @@
       <div>
         <div class="exp-company">ITP Western Express</div>
         <div class="exp-role">Technical Consultant</div>
-        <div class="exp-desc">Applicant Tracking System. Reduced recruitment costs 60%.</div>
+        <div class="exp-desc">Reduced recruitment costs 60% by building a custom ATS with Node.js, MongoDB, and GCP. Drove 15% user retention improvement by mentoring a frontend intern to ship a React landing page.</div>
       </div>
       <div class="exp-date">2022 — 2024</div>
     </div>
@@ -549,15 +681,15 @@
       <div>
         <div class="exp-company">Google Summer of Code</div>
         <div class="exp-role">Contributor · Mifos Initiative</div>
-        <div class="exp-desc">Centralized IAM for Apache Fineract. Keycloak on K8s, Kong API Gateway. <a href="https://summerofcode.withgoogle.com/programs/2022/projects/ZtjNCaIQ" target="_blank" style="color:var(--accent);opacity:0.8;font-size:12px">View on GSoC →</a></div>
+        <div class="exp-desc">Reduced incident reports 30% by integrating centralized IAM into Apache Fineract using OpenID Connect, Keycloak on K8s, and Kong API Gateway. <a href="https://summerofcode.withgoogle.com/programs/2022/projects/ZtjNCaIQ" target="_blank" style="color:var(--accent);opacity:0.8;font-size:12px">View on GSoC →</a></div>
       </div>
       <div class="exp-date">2022</div>
     </div>
     <div class="exp-row">
       <div>
         <div class="exp-company">Voomp Technologies</div>
-        <div class="exp-role">Co-Founder</div>
-        <div class="exp-desc">Loan Management Systems for NBFCs. $100K+ revenue. Clients across India and Africa.</div>
+        <div class="exp-role">Co-Founder & Software Engineer</div>
+        <div class="exp-desc">Generated $100K+ revenue in 9 months building and selling Loan Management Systems for NBFCs. Secured 90% client retention across India and Africa. Built a co-lending feature enabling multi-lender loan capabilities on Fineract.</div>
       </div>
       <div class="exp-date">2020 — 2021</div>
     </div>
@@ -619,6 +751,7 @@
       <a href="https://www.linkedin.com/in/anmgupta" target="_blank">LinkedIn</a>
       <a href="https://github.com/anmgupta" target="_blank">GitHub</a>
       <a href="images/Anmol_Gupta_CV.pdf" download>Resume</a>
+      <a href="https://tinyurl.com/collab-with-anmol" target="_blank" class="book-cta magnetic">Book a Slot →</a>
     </div>
   </section>
 
@@ -632,6 +765,22 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
 <script>
+/* ═══ LOADING SEQUENCE ═══ */
+const loader = document.getElementById('loader');
+const loaderName = loader.querySelector('.loader-name');
+
+gsap.set('.content', { opacity: 0 });
+gsap.to(loaderName, { opacity: 1, duration: 0.6, ease: 'power2.out', delay: 0.1 });
+gsap.to(loaderName, { opacity: 0, duration: 0.4, ease: 'power2.in', delay: 1.0 });
+gsap.to(loader, {
+  yPercent: -100,
+  duration: 0.8,
+  ease: 'power4.inOut',
+  delay: 1.3,
+  onComplete: () => { loader.style.display = 'none'; }
+});
+gsap.to('.content', { opacity: 1, duration: 0.3, delay: 1.3 });
+
 /* ═══ SMOOTH SCROLL (Lenis) ═══ */
 const lenis = new Lenis({ lerp: 0.07, smoothWheel: true });
 lenis.on('scroll', ScrollTrigger.update);
@@ -652,13 +801,44 @@ document.addEventListener('mousemove', e => { cx = e.clientX; cy = e.clientY; })
   dot.style.top = cy + 'px';
   requestAnimationFrame(cursorLoop);
 })();
-document.querySelectorAll('a, button, .proj-img, .btn-main, .btn-ghost, .nav-cta, .skills-cloud span').forEach(el => {
+document.querySelectorAll('a, button, .proj-img, .btn-main, .btn-ghost, .nav-cta, .nav-book, .skills-cloud span, .book-cta').forEach(el => {
   el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
   el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
 });
 
+/* ═══ MAGNETIC CURSOR ═══ */
+document.querySelectorAll('.magnetic, .nav-cta, .nav-book, .contact-row a').forEach(el => {
+  el.addEventListener('mousemove', e => {
+    const rect = el.getBoundingClientRect();
+    const mx = e.clientX - rect.left - rect.width / 2;
+    const my = e.clientY - rect.top - rect.height / 2;
+    el.style.transform = `translate(${mx * 0.2}px, ${my * 0.2}px)`;
+  });
+  el.addEventListener('mouseleave', () => {
+    el.style.transform = '';
+    el.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+    setTimeout(() => { el.style.transition = ''; }, 400);
+  });
+});
+
+/* ═══ NAV BACKDROP BLUR ON SCROLL ═══ */
+const mainNav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 80) {
+    mainNav.classList.add('scrolled');
+  } else {
+    mainNav.classList.remove('scrolled');
+  }
+}, { passive: true });
+
 /* ═══ THREE.JS — Gradient noise shader ═══ */
 (function() {
+  // Disable on mobile for performance
+  if (window.innerWidth < 768) {
+    document.getElementById('shader-bg').style.display = 'none';
+    return;
+  }
+
   const canvas = document.getElementById('shader-bg');
   const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -703,17 +883,26 @@ document.querySelectorAll('a, button, .proj-img, .btn-main, .btn-ghost, .nav-cta
         n += noise(vec3(uv * 4.0, t * 1.5)) * 0.25;
         n += noise(vec3(uv * 8.0 + uMouse * 0.5, t * 0.8)) * 0.125;
 
+        // Flow field distortion
+        float flow = noise(vec3(uv * 3.0 + n * 0.5, t * 0.3));
+        uv += vec2(flow * 0.03, flow * 0.02);
+
         // Color: deep purple to indigo to dark blue
-        vec3 col1 = vec3(0.08, 0.02, 0.15); // deep purple
-        vec3 col2 = vec3(0.02, 0.04, 0.18); // deep blue
-        vec3 col3 = vec3(0.15, 0.04, 0.2);  // magenta hint
+        vec3 col1 = vec3(0.10, 0.03, 0.18); // deep purple (brighter)
+        vec3 col2 = vec3(0.03, 0.05, 0.22); // deep blue (brighter)
+        vec3 col3 = vec3(0.18, 0.05, 0.24); // magenta hint (brighter)
 
         vec3 color = mix(col1, col2, n);
-        color = mix(color, col3, noise(vec3(uv * 3.0 + 0.5, t * 0.5)) * 0.4);
+        color = mix(color, col3, noise(vec3(uv * 3.0 + 0.5, t * 0.5)) * 0.45);
 
         // Subtle mouse glow
-        float dist = length(uv - uMouse);
-        color += vec3(0.06, 0.02, 0.1) * smoothstep(0.5, 0.0, dist);
+        float dist = length(vUv - uMouse);
+        color += vec3(0.08, 0.03, 0.13) * smoothstep(0.5, 0.0, dist);
+
+        // Chromatic aberration hint
+        float ca = noise(vec3(vUv * 6.0, t * 0.4)) * 0.015;
+        color.r += ca;
+        color.b -= ca * 0.5;
 
         gl_FragColor = vec4(color, 1.0);
       }
@@ -742,35 +931,43 @@ document.querySelectorAll('a, button, .proj-img, .btn-main, .btn-ghost, .nav-cta
 /* ═══ GSAP ANIMATIONS ═══ */
 gsap.registerPlugin(ScrollTrigger);
 
-// Hero text reveal — lines slide up
+// Hero text reveal — staggered with varied timing
 gsap.to('.hero .line-inner', {
   y: 0,
   duration: 1.2,
   ease: 'power4.out',
-  stagger: 0.12,
-  delay: 0.4,
+  stagger: 0.18,
+  delay: 1.5,
 });
-gsap.from('.hero-label-inner', { y: '100%', duration: 0.8, ease: 'power3.out', delay: 0.2 });
-gsap.from('.hero-sub', { opacity: 0, y: 20, duration: 0.8, ease: 'power2.out', delay: 1 });
-gsap.from('.hero-ctas', { opacity: 0, y: 20, duration: 0.8, ease: 'power2.out', delay: 1.2 });
-gsap.from('.hero-scroll', { opacity: 0, duration: 0.6, delay: 1.6 });
+gsap.from('.hero-label-inner', { y: '100%', duration: 0.8, ease: 'power3.out', delay: 1.4 });
+gsap.fromTo('.hero-sub', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 2.2 });
+gsap.fromTo('.hero-ctas', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 2.5 });
+gsap.from('.hero-scroll', { opacity: 0, duration: 0.6, delay: 2.8 });
 
-// Hero parallax
+// Hero parallax — scrub reverses automatically on scroll back up
 gsap.to('.hero h1', {
-  scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 },
+  scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true },
   y: -60, opacity: 0.15,
 });
-gsap.to('.hero-sub, .hero-ctas', {
-  scrollTrigger: { trigger: '.hero', start: 'top top', end: '50% top', scrub: 1 },
+gsap.to('.hero-sub', {
+  scrollTrigger: { trigger: '.hero', start: 'top top', end: '50% top', scrub: true },
+  y: -30, opacity: 0,
+});
+gsap.to('.hero-ctas', {
+  scrollTrigger: { trigger: '.hero', start: 'top top', end: '50% top', scrub: true },
   y: -30, opacity: 0,
 });
 
-// Project images — reveal
-gsap.utils.toArray('.proj-img').forEach(img => {
+// Project images — staggered reveal with varying params
+gsap.utils.toArray('.proj-img').forEach((img, i) => {
   gsap.from(img, {
     scrollTrigger: { trigger: img, start: 'top 90%', toggleActions: 'play none none reverse' },
-    opacity: 0, y: 60, scale: 0.96,
-    duration: 1, ease: 'power3.out',
+    opacity: 0,
+    y: 40 + (i % 2) * 30,
+    scale: 0.96,
+    duration: 0.9 + (i % 3) * 0.15,
+    ease: 'power3.out',
+    delay: (i % 2) * 0.15,
   });
 });
 
@@ -782,11 +979,12 @@ gsap.utils.toArray('.section-head h2').forEach(h => {
   });
 });
 
-// Experience rows
-gsap.utils.toArray('.exp-row').forEach(r => {
+// Experience rows — staggered cascade
+gsap.utils.toArray('.exp-row').forEach((r, i) => {
   gsap.from(r, {
     scrollTrigger: { trigger: r, start: 'top 92%', toggleActions: 'play none none reverse' },
     opacity: 0, y: 20, duration: 0.6, ease: 'power2.out',
+    delay: i * 0.05,
   });
 });
 
@@ -802,10 +1000,16 @@ gsap.from('.contact h2', {
   opacity: 0, y: 40, duration: 1, ease: 'power3.out',
 });
 
+// Contact buttons staggered
+gsap.from('.contact-row a', {
+  scrollTrigger: { trigger: '.contact-row', start: 'top 90%', toggleActions: 'play none none reverse' },
+  opacity: 0, y: 16, stagger: 0.08, duration: 0.5, ease: 'power2.out',
+});
+
 // Skills
 gsap.from('.skills-cloud span', {
   scrollTrigger: { trigger: '.skills-cloud', start: 'top 88%', toggleActions: 'play none none reverse' },
-  opacity: 0, y: 12, stagger: 0.02, duration: 0.4, ease: 'power2.out',
+  opacity: 0, y: 12, stagger: 0.03, duration: 0.4, ease: 'power2.out',
 });
 
 // Smooth anchor scroll
