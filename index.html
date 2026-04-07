@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="images/profile-2.JPG" />
   <style>
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
     :root{
@@ -98,7 +99,8 @@
       backdrop-filter:blur(16px);
       -webkit-backdrop-filter:blur(16px);
     }
-    .nav-name{font-size:14px;font-weight:700;letter-spacing:-0.02em}
+    .nav-name{font-size:14px;font-weight:700;letter-spacing:-0.02em;display:flex;align-items:center;gap:10px}
+    .nav-avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(255,255,255,0.15)}
     .nav-right{display:flex;gap:28px;align-items:center}
     .nav-right a{font-size:13px;font-weight:500;opacity:0.5;transition:opacity 0.3s}
     .nav-right a:hover{opacity:1}
@@ -134,10 +136,16 @@
     /* ═══ HERO ═══ */
     .hero{
       min-height:100vh;
-      display:flex;flex-direction:column;
-      justify-content:center;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      align-items:center;
       padding:0 48px;
       position:relative;
+    }
+    .hero-text{
+      display:flex;flex-direction:column;
+      justify-content:center;
+      z-index:2;
     }
     .hero-label{
       font-size:clamp(12px,1.2vw,14px);
@@ -201,6 +209,54 @@
       animation:lineSlide 2s ease-in-out infinite;
     }
     @keyframes lineSlide{0%{left:-100%}50%{left:0}100%{left:100%}}
+
+    /* ═══ HERO COLLAGE ═══ */
+    .hero-collage{
+      position:relative;
+      width:100%;
+      height:70vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:1;
+    }
+    .collage-center{
+      width:210px;height:210px;
+      border-radius:50%;
+      overflow:hidden;
+      box-shadow:0 16px 60px rgba(79,70,229,0.15),0 4px 24px rgba(0,0,0,0.4);
+      border:2px solid rgba(255,255,255,0.08);
+      z-index:5;
+      position:relative;
+    }
+    .collage-center img{
+      width:100%;height:100%;
+      object-fit:cover;display:block;
+    }
+    .orbit-ring{
+      position:absolute;
+      top:0;left:0;width:100%;height:100%;
+      pointer-events:none;
+    }
+    .orbit-item{
+      position:absolute;
+      width:115px;height:115px;
+      border-radius:50%;
+      overflow:hidden;
+      box-shadow:0 8px 32px rgba(0,0,0,0.35);
+      border:1px solid rgba(255,255,255,0.08);
+      pointer-events:auto;
+      will-change:transform;
+      top:50%;left:50%;
+      margin-top:-57px;margin-left:-57px;
+      transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);
+      opacity:0;
+    }
+    .orbit-item img{
+      width:100%;height:100%;
+      object-fit:cover;display:block;
+
+    }
 
     /* ═══ MARQUEE ═══ */
     .marquee{
@@ -310,6 +366,7 @@
     .exp-company{font-size:18px;font-weight:600;letter-spacing:-0.01em}
     .exp-role{font-size:14px;color:var(--dim);margin-top:2px}
     .exp-desc{font-size:13px;color:rgba(255,255,255,0.55);margin-top:8px;line-height:1.6;max-width:480px}
+    .exp-desc strong{color:var(--fg);font-weight:500}
     .exp-date{font-size:13px;color:var(--dim);text-align:right;white-space:nowrap}
 
     /* ═══ SKILLS CLOUD ═══ */
@@ -417,7 +474,10 @@
     /* ═══ TABLET ═══ */
     @media(max-width:1024px){
       nav{padding:18px 32px}
-      .hero{padding:0 32px}
+      .hero{padding:0 32px;grid-template-columns:1fr 0.9fr}
+      .collage-center{width:180px;height:180px}
+
+      .orbit-item{width:95px;height:95px;margin-top:-47px;margin-left:-47px}
       .section-head{padding:100px 32px 60px}
       .projects{padding:0 32px 100px}
       .experience,.education,.about-section,.skills-section,.contact{padding-left:32px;padding-right:32px}
@@ -431,7 +491,13 @@
       .nav-cta{padding:6px 14px;font-size:11px!important}
       .nav-book{padding:6px 14px;font-size:11px!important}
 
-      .hero{padding:0 20px;min-height:90vh}
+      body{background:linear-gradient(160deg,#0a0a0a 0%,#10082a 35%,#0a1030 60%,#180524 85%,#0a0a0a 100%)}
+      .hero{padding:0 20px;min-height:auto;grid-template-columns:1fr;grid-template-rows:auto auto auto;gap:0}
+      .hero-text{order:1}
+      .hero-collage{order:0;height:280px;margin-bottom:16px;margin-top:100px}
+      .collage-center{width:120px;height:120px;opacity:1!important}
+      .orbit-item{width:60px;height:60px;margin-top:-30px;margin-left:-30px}
+
       .hero h1{font-size:clamp(40px,12vw,72px)}
       .hero-sub{font-size:16px;margin-top:20px}
       .hero-ctas{flex-direction:column;gap:12px;margin-top:28px}
@@ -485,6 +551,10 @@
       .nav-right{gap:8px}
       .hero{padding:0 16px}
       .hero h1{font-size:36px}
+      .collage-center{width:100px;height:100px}
+      .orbit-item{width:50px;height:50px;margin-top:-25px;margin-left:-25px}
+      .hero-collage{height:240px}
+
       .section-head,.projects,.experience,.education,.about-section,.skills-section,.contact{padding-left:16px;padding-right:16px}
     }
 
@@ -497,6 +567,8 @@
         scroll-behavior:auto!important;
       }
       .hero h1 .line-inner{transform:translateY(0)!important}
+      .collage-center{opacity:1!important}
+      .orbit-item{opacity:1!important;will-change:auto}
       #shader-bg{display:none}
       .grain{display:none}
     }
@@ -529,7 +601,7 @@
 
 <!-- NAV -->
 <nav id="mainNav">
-  <span class="nav-name">meet-anmol</span>
+  <span class="nav-name"><img src="images/profile.jpeg" alt="" class="nav-avatar" />meet-anmol</span>
   <div class="nav-right">
     <a href="#work">Work</a>
     <a href="#exp">Experience</a>
@@ -545,18 +617,54 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-label"><span class="hero-label-inner">AI · Software · Product Engineer</span></div>
-    <h1>
-      <span class="line"><span class="line-inner">Anmol</span></span>
-      <span class="line"><span class="line-inner">Gupta</span></span>
-    </h1>
-    <p class="hero-sub">Building AI-driven systems at early-stage startups. Distributed pipelines, LLM agents, and products — from zero to one.</p>
-    <div class="hero-ctas">
-      <a href="#work" class="btn-main magnetic">View Work</a>
-      <a href="images/Anmol_Gupta_CV.pdf" class="btn-ghost magnetic" download>
-        Download CV
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 2v8"/><path d="M3 7l4 4 4-4"/></svg>
-      </a>
+    <div class="hero-text">
+      <div class="hero-label"><span class="hero-label-inner">AI · Software · Product Engineer</span></div>
+      <h1>
+        <span class="line"><span class="line-inner">Anmol</span></span>
+        <span class="line"><span class="line-inner">Gupta</span></span>
+      </h1>
+      <p class="hero-sub">Building AI-driven systems at early-stage startups. Distributed pipelines, LLM agents, and products — from zero to one.</p>
+      <div class="hero-ctas">
+        <a href="#work" class="btn-main magnetic">View Work</a>
+        <a href="images/Anmol_Gupta_CV.pdf" class="btn-ghost magnetic" download>
+          Download CV
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 2v8"/><path d="M3 7l4 4 4-4"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="hero-collage">
+      <div class="collage-center">
+        <img src="images/profile-2.JPG" alt="Anmol Gupta" loading="eager" />
+      </div>
+      <div class="orbit-ring">
+        <div class="orbit-item" data-angle="0">
+          <img src="images/IMG_5566.jpg" alt="Ladakh motorcycle" loading="eager" />
+        </div>
+        <div class="orbit-item" data-angle="40">
+          <img src="images/IMG_7220.jpg" alt="Himalayas viewpoint" loading="eager" />
+        </div>
+        <div class="orbit-item" data-angle="80">
+          <img src="images/IMG_8265.jpg" alt="Maasai encounter" loading="eager" />
+        </div>
+        <div class="orbit-item" data-angle="120">
+          <img src="images/IMG_9778.jpg" alt="Mauritius beach" loading="eager" />
+        </div>
+        <div class="orbit-item" data-angle="160">
+          <img src="images/travel-vietnam.jpeg" alt="Ha Long Bay" loading="eager" />
+        </div>
+        <div class="orbit-item" data-angle="200">
+          <img src="images/IMG_7838.jpg" alt="Viewpoint lookout" loading="eager" />
+        </div>
+        <div class="orbit-item" data-angle="240">
+          <img src="images/IMG_9304.jpg" alt="Lotus pond" loading="eager" />
+        </div>
+        <div class="orbit-item" data-angle="280">
+          <img src="images/IMG_9876.jpg" alt="Tropical mirror" loading="eager" />
+        </div>
+        <div class="orbit-item" data-angle="320">
+          <img src="images/IMG_6622.JPG" alt="With a friend" loading="eager" />
+        </div>
+      </div>
     </div>
     <div class="hero-scroll">
       <div class="line-anim"></div>
@@ -649,7 +757,7 @@
       <div>
         <div class="exp-company">Stealth Startup(s)</div>
         <div class="exp-role">Founding Engineer · Multiple AI Ventures</div>
-        <div class="exp-desc">Building 0→1 across several early-stage AI bets — shipping hiring intelligence, legal-tech contract analysis, and document signing products from first commit to production.</div>
+        <div class="exp-desc">Building <strong>0→1</strong> across several early-stage AI bets — shipping <strong>hiring intelligence</strong>, <strong>legal-tech contract analysis</strong>, and <strong>document signing</strong> products from first commit to production.</div>
       </div>
       <div class="exp-date">2025 —</div>
     </div>
@@ -657,7 +765,7 @@
       <div>
         <div class="exp-company">StoresData</div>
         <div class="exp-role">Founding Software Engineer</div>
-        <div class="exp-desc">Boosted data ingestion throughput 25% by architecting event-driven pipelines with Inngest, processing 5M+ Shopify stores. Cut storage costs 50% via S3 blob migration and Gzip compression. Enabled 500+ concurrent store scans with parallel workers and exponential backoff.</div>
+        <div class="exp-desc">Boosted data ingestion throughput <strong>25%</strong> by architecting event-driven pipelines with Inngest, processing <strong>5M+ Shopify stores</strong>. Cut storage costs <strong>50%</strong> via S3 blob migration and Gzip compression. Enabled <strong>500+ concurrent store scans</strong> with parallel workers and exponential backoff.</div>
       </div>
       <div class="exp-date">2024 —</div>
     </div>
@@ -665,7 +773,7 @@
       <div>
         <div class="exp-company">Sundial</div>
         <div class="exp-role">Founding Software Engineer</div>
-        <div class="exp-desc">Achieved 30% faster async processing by architecting a high-performance backend with Java Spring Boot and RabbitMQ. Deployed Cloud SQL, VPC networks on GCP — boosting data processing efficiency 40%. Delivered an AI assistant for solar installation code comprehension.</div>
+        <div class="exp-desc">Achieved <strong>30% faster</strong> async processing by architecting a high-performance backend with Java Spring Boot and RabbitMQ. Deployed Cloud SQL, VPC networks on GCP — boosting data processing efficiency <strong>40%</strong>. Delivered an <strong>AI assistant</strong> for solar installation code comprehension.</div>
       </div>
       <div class="exp-date">2023 — 2024</div>
     </div>
@@ -673,7 +781,7 @@
       <div>
         <div class="exp-company">ITP Western Express</div>
         <div class="exp-role">Technical Consultant</div>
-        <div class="exp-desc">Reduced recruitment costs 60% by building a custom ATS with Node.js, MongoDB, and GCP. Drove 15% user retention improvement by mentoring a frontend intern to ship a React landing page.</div>
+        <div class="exp-desc">Reduced recruitment costs <strong>60%</strong> by building a custom ATS with Node.js, MongoDB, and GCP. Drove <strong>15% user retention</strong> improvement by mentoring a frontend intern to ship a React landing page.</div>
       </div>
       <div class="exp-date">2022 — 2024</div>
     </div>
@@ -681,7 +789,7 @@
       <div>
         <div class="exp-company">Google Summer of Code</div>
         <div class="exp-role">Contributor · Mifos Initiative</div>
-        <div class="exp-desc">Reduced incident reports 30% by integrating centralized IAM into Apache Fineract using OpenID Connect, Keycloak on K8s, and Kong API Gateway. <a href="https://summerofcode.withgoogle.com/programs/2022/projects/ZtjNCaIQ" target="_blank" style="color:var(--accent);opacity:0.8;font-size:12px">View on GSoC →</a></div>
+        <div class="exp-desc">Reduced incident reports <strong>30%</strong> by integrating <strong>centralized IAM</strong> into Apache Fineract using OpenID Connect, Keycloak on K8s, and Kong API Gateway. <a href="https://summerofcode.withgoogle.com/programs/2022/projects/ZtjNCaIQ" target="_blank" style="color:var(--accent);opacity:0.8;font-size:12px">View on GSoC →</a></div>
       </div>
       <div class="exp-date">2022</div>
     </div>
@@ -689,7 +797,7 @@
       <div>
         <div class="exp-company">Voomp Technologies</div>
         <div class="exp-role">Co-Founder & Software Engineer</div>
-        <div class="exp-desc">Generated $100K+ revenue in 9 months building and selling Loan Management Systems for NBFCs. Secured 90% client retention across India and Africa. Built a co-lending feature enabling multi-lender loan capabilities on Fineract.</div>
+        <div class="exp-desc">Generated <strong>$100K+ revenue</strong> in 9 months building and selling Loan Management Systems for NBFCs. Secured <strong>90% client retention</strong> across India and Africa. Built a <strong>co-lending feature</strong> enabling multi-lender loan capabilities on Fineract.</div>
       </div>
       <div class="exp-date">2020 — 2021</div>
     </div>
@@ -801,7 +909,7 @@ document.addEventListener('mousemove', e => { cx = e.clientX; cy = e.clientY; })
   dot.style.top = cy + 'px';
   requestAnimationFrame(cursorLoop);
 })();
-document.querySelectorAll('a, button, .proj-img, .btn-main, .btn-ghost, .nav-cta, .nav-book, .skills-cloud span, .book-cta').forEach(el => {
+document.querySelectorAll('a, button, .proj-img, .btn-main, .btn-ghost, .nav-cta, .nav-book, .skills-cloud span, .book-cta, .collage-center, .orbit-item').forEach(el => {
   el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
   el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
 });
@@ -944,18 +1052,132 @@ gsap.fromTo('.hero-sub', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.
 gsap.fromTo('.hero-ctas', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 2.5 });
 gsap.from('.hero-scroll', { opacity: 0, duration: 0.6, delay: 2.8 });
 
+/* ═══ HERO COLLAGE — ENTRANCE + ORBIT ═══ */
+try {
+  var heroCollage = document.querySelector('.hero-collage');
+  var collageCenter = document.querySelector('.collage-center');
+  var orbitItems = document.querySelectorAll('.orbit-item');
+  var orbitRing = document.querySelector('.orbit-ring');
+
+  if (heroCollage && collageCenter) {
+    // Center photo entrance — elastic pop
+    gsap.from(collageCenter, { scale: 0.5, opacity: 0, duration: 1.4, ease: 'elastic.out(1, 0.5)', delay: 1.6 });
+
+    // Orbit items entrance — fly in from wide radius
+    var flyRadius = window.innerWidth <= 768 ? 200 : 400;
+    orbitItems.forEach(function(item, i) {
+      var angle = (parseFloat(item.dataset.angle) || 0) * (Math.PI / 180);
+      var fromX = Math.cos(angle) * flyRadius;
+      var fromY = Math.sin(angle) * (flyRadius * 0.875);
+      gsap.fromTo(item,
+        { opacity: 0, x: fromX, y: fromY, scale: 0.4 },
+        { opacity: 1, x: 0, y: 0, scale: 1, duration: 1.0, ease: 'power3.out', delay: 2.4 + i * 0.06 }
+      );
+    });
+
+    // Orbital animation + mouse tilt (desktop), orbit only (mobile)
+    if (orbitRing) {
+      var isMobile = window.innerWidth <= 768;
+      var ORBIT_SPEED = 0.05;
+      var orbitAngle = 0;
+      var orbitRX = 175;
+      var orbitRY = 150;
+      var tiltX = 0, tiltY = 0, targetTiltX = 0, targetTiltY = 0;
+      var orbitStarted = false;
+      var orbitPaused = false;
+      var hoveredItem = null;
+
+      function updateOrbit() {
+        if (!orbitPaused) {
+          orbitAngle += ORBIT_SPEED;
+        }
+
+        orbitItems.forEach(function(item) {
+          var baseAngle = parseFloat(item.dataset.angle) || 0;
+          var rad = (baseAngle + orbitAngle) * (Math.PI / 180);
+          var x = Math.cos(rad) * orbitRX;
+          var y = Math.sin(rad) * orbitRY;
+          var depth = (Math.sin(rad) + 1) / 2;
+          var scale = 0.9 + 0.1 * depth;
+          var rotation = Math.cos(rad) * 3;
+
+          // Enlarge hovered item
+          if (item === hoveredItem) {
+            scale *= 1.25;
+            item.style.zIndex = 20;
+          } else {
+            item.style.zIndex = Math.round(depth * 10) + 1;
+          }
+
+          item.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(' + scale + ') rotate(' + rotation + 'deg)';
+        });
+
+        // Mouse tilt — gentle
+        tiltX += (targetTiltX - tiltX) * 0.04;
+        tiltY += (targetTiltY - tiltY) * 0.04;
+        orbitRing.style.transform = 'perspective(800px) rotateX(' + tiltX + 'deg) rotateY(' + tiltY + 'deg)';
+
+        requestAnimationFrame(updateOrbit);
+      }
+
+      // Hover: pause orbit + enlarge item (desktop only)
+      if (!isMobile) {
+        orbitItems.forEach(function(item) {
+          item.addEventListener('mouseenter', function() {
+            orbitPaused = true;
+            hoveredItem = item;
+          });
+          item.addEventListener('mouseleave', function() {
+            orbitPaused = false;
+            hoveredItem = null;
+          });
+        });
+
+        document.addEventListener('mousemove', function(e) {
+          if (!orbitStarted) return;
+          var rect = heroCollage.getBoundingClientRect();
+          if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+          var cX = window.innerWidth / 2;
+          var cY = window.innerHeight / 2;
+          targetTiltX = ((e.clientY - cY) / cY) * -4;
+          targetTiltY = ((e.clientX - cX) / cX) * 4;
+        });
+      }
+
+      // Start orbit after entrance completes
+      gsap.delayedCall(3.2, function() {
+        var w = heroCollage.offsetWidth;
+        var h = heroCollage.offsetHeight;
+        if (isMobile) {
+          orbitRX = Math.max(90, Math.min(130, w * 0.35));
+          orbitRY = Math.max(80, Math.min(110, h * 0.35));
+        } else {
+          orbitRX = Math.max(130, Math.min(190, w * 0.32));
+          orbitRY = Math.max(110, Math.min(165, h * 0.28));
+        }
+        orbitStarted = true;
+        updateOrbit();
+      });
+    }
+  }
+} catch(e) { console.warn('Collage init error:', e); }
+
 // Hero parallax — scrub reverses automatically on scroll back up
 gsap.to('.hero h1', {
   scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true },
   y: -60, opacity: 0.15,
 });
-gsap.to('.hero-sub', {
-  scrollTrigger: { trigger: '.hero', start: 'top top', end: '50% top', scrub: true },
-  y: -30, opacity: 0,
-});
-gsap.to('.hero-ctas', {
-  scrollTrigger: { trigger: '.hero', start: 'top top', end: '50% top', scrub: true },
-  y: -30, opacity: 0,
+gsap.fromTo('.hero-sub',
+  { opacity: 1, y: 0 },
+  { scrollTrigger: { trigger: '.hero', start: 'top top', end: '50% top', scrub: true }, y: -30, opacity: 0 }
+);
+gsap.fromTo('.hero-ctas',
+  { opacity: 1, y: 0 },
+  { scrollTrigger: { trigger: '.hero', start: 'top top', end: '50% top', scrub: true }, y: -30, opacity: 0 }
+);
+gsap.to('.hero-collage', {
+  scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true },
+  y: -80, opacity: 0.1,
 });
 
 // Project images — staggered reveal with varying params

@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dig meet-anmol.com +short)",
+      "Bash(dig www.meet-anmol.com +short)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(git stash:*)",
+      "Bash(curl -sI http://meet-anmol.com)",
+      "Bash(file *)",
+      "Read(//Users/kavitagupta/Documents/Claude/Projects/meet-anmol/**)",
+      "Bash(open index.html)",
+      "Bash(node --check /tmp/test_script.js)",
+      "Bash(open http://localhost:8080)"
+    ]
+  }
+}
