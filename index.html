@@ -22,7 +22,7 @@
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="preload" as="image" href="images/profile-2.JPG" />
+    <link rel="preload" as="image" href="images/profile.jpeg" />
     <style>
       *,
       *::before,
@@ -311,6 +311,41 @@
         max-width: 540px;
         line-height: 1.5;
       }
+      .hero-creds {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 24px;
+      }
+      .hero-cred {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        border-radius: 100px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.04);
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--dim);
+        letter-spacing: 0.01em;
+        transition: border-color 0.3s, background 0.3s;
+      }
+      .hero-cred:hover {
+        border-color: rgba(79, 70, 229, 0.3);
+        background: rgba(79, 70, 229, 0.06);
+      }
+      .hero-cred .cred-highlight {
+        color: var(--fg);
+        font-weight: 600;
+      }
+      .hero-cred .cred-dot {
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: var(--accent);
+        flex-shrink: 0;
+      }
       .hero-ctas {
         display: flex;
         gap: 20px;
@@ -394,15 +429,14 @@
       .hero-collage {
         position: relative;
         width: 100%;
-        height: 70vh;
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 1;
       }
       .collage-center {
-        width: 210px;
-        height: 210px;
+        width: 300px;
+        height: 300px;
         border-radius: 50%;
         overflow: visible;
         box-shadow:
@@ -467,45 +501,6 @@
           opacity: 1;
           transform: scale(1.08);
         }
-      }
-      .orbit-ring {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-      }
-      .orbit-item {
-        position: absolute;
-        width: 115px;
-        height: 115px;
-        border-radius: 50%;
-        overflow: hidden;
-        box-shadow:
-          0 8px 32px rgba(0, 0, 0, 0.4),
-          0 0 20px rgba(79, 70, 229, 0.15),
-          0 0 40px rgba(79, 70, 229, 0.06);
-        border: 1px solid rgba(79, 70, 229, 0.12);
-        pointer-events: auto;
-        will-change: transform;
-        top: 50%;
-        left: 50%;
-        margin-top: -57px;
-        margin-left: -57px;
-        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        opacity: 0;
-      }
-      .orbit-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        filter: grayscale(1) brightness(0.85) contrast(1.1);
-        transition: filter 0.5s ease;
-      }
-      .orbit-item:hover img {
-        filter: grayscale(0) brightness(1) contrast(1);
       }
 
       /* ═══ MARQUEE ═══ */
@@ -834,15 +829,8 @@
           grid-template-columns: 1fr 0.9fr;
         }
         .collage-center {
-          width: 180px;
-          height: 180px;
-        }
-
-        .orbit-item {
-          width: 95px;
-          height: 95px;
-          margin-top: -47px;
-          margin-left: -47px;
+          width: 260px;
+          height: 260px;
         }
         .section-head {
           padding: 100px 32px 60px;
@@ -1197,16 +1185,16 @@
         }
         .hero-collage {
           order: 1;
-          height: 300px;
-          margin-bottom: 40px;
-          margin-top: 32px;
+          height: 240px;
+          margin-bottom: 32px;
+          margin-top: 28px;
           overflow: visible;
         }
 
         /* Collage sizing — center photo prominent */
         .collage-center {
-          width: 140px;
-          height: 140px;
+          width: 200px;
+          height: 200px;
           opacity: 1 !important;
         }
         .collage-center::before {
@@ -1215,15 +1203,6 @@
         }
         .collage-center::after {
           inset: -12px;
-        }
-        .orbit-item {
-          width: 65px;
-          height: 65px;
-          margin-top: -32px;
-          margin-left: -32px;
-          box-shadow:
-            0 4px 16px rgba(0, 0, 0, 0.4),
-            0 0 14px rgba(79, 70, 229, 0.15);
         }
 
         /* Typography */
@@ -1237,6 +1216,14 @@
           font-size: 15px;
           margin-top: 18px;
           line-height: 1.6;
+        }
+        .hero-creds {
+          margin-top: 18px;
+          gap: 8px;
+        }
+        .hero-cred {
+          font-size: 11px;
+          padding: 5px 10px;
         }
         .hero-ctas {
           flex-direction: column;
@@ -1394,8 +1381,8 @@
           font-size: 38px;
         }
         .collage-center {
-          width: 110px;
-          height: 110px;
+          width: 160px;
+          height: 160px;
         }
         .collage-center::before {
           inset: -3px;
@@ -1403,15 +1390,13 @@
         .collage-center::after {
           inset: -8px;
         }
-        .orbit-item {
-          width: 52px;
-          height: 52px;
-          margin-top: -26px;
-          margin-left: -26px;
-        }
         .hero-collage {
-          height: 260px;
-          margin-bottom: 32px;
+          height: 200px;
+          margin-bottom: 24px;
+        }
+        .hero-cred {
+          font-size: 10px;
+          padding: 4px 8px;
         }
 
         .section-head,
@@ -1441,10 +1426,6 @@
         }
         .collage-center {
           opacity: 1 !important;
-        }
-        .orbit-item {
-          opacity: 1 !important;
-          will-change: auto;
         }
         #shader-bg {
           display: none;
@@ -1544,6 +1525,16 @@
             Building AI-driven systems at early-stage startups. Distributed
             pipelines, LLM agents, and products — from zero to one.
           </p>
+          <div class="hero-creds">
+            <span class="hero-cred">
+              <span class="cred-dot"></span>
+              <span class="cred-highlight">Google</span> Summer of Code '22
+            </span>
+            <span class="hero-cred">
+              <span class="cred-dot"></span>
+              Co-Founder <span class="cred-highlight">· $100K+ Rev</span>
+            </span>
+          </div>
           <div class="hero-ctas">
             <a href="#work" class="btn-main magnetic">View Work</a>
             <a
@@ -1568,61 +1559,7 @@
         </div>
         <div class="hero-collage">
           <div class="collage-center">
-            <img src="images/profile-2.JPG" alt="Anmol Gupta" loading="eager" />
-          </div>
-          <div class="orbit-ring">
-            <div class="orbit-item" data-angle="0">
-              <img
-                src="images/IMG_5566.jpg"
-                alt="Ladakh motorcycle"
-                loading="eager"
-              />
-            </div>
-            <div class="orbit-item" data-angle="45">
-              <img
-                src="images/IMG_7220.jpg"
-                alt="Himalayas viewpoint"
-                loading="eager"
-              />
-            </div>
-            <div class="orbit-item" data-angle="90">
-              <img
-                src="images/IMG_8265.jpg"
-                alt="Maasai encounter"
-                loading="eager"
-              />
-            </div>
-            <div class="orbit-item" data-angle="135">
-              <img
-                src="images/IMG_9778.jpg"
-                alt="Mauritius beach"
-                loading="eager"
-              />
-            </div>
-            <div class="orbit-item" data-angle="180">
-              <img
-                src="images/travel-vietnam.jpeg"
-                alt="Ha Long Bay"
-                loading="eager"
-              />
-            </div>
-            <div class="orbit-item" data-angle="225">
-              <img
-                src="images/IMG_7838.jpg"
-                alt="Viewpoint lookout"
-                loading="eager"
-              />
-            </div>
-            <div class="orbit-item" data-angle="270">
-              <img src="images/IMG_9304.jpg" alt="Lotus pond" loading="eager" />
-            </div>
-            <div class="orbit-item" data-angle="315">
-              <img
-                src="images/IMG_9876.jpg"
-                alt="Tropical mirror"
-                loading="eager"
-              />
-            </div>
+            <img src="images/profile.jpeg" alt="Anmol Gupta" loading="eager" />
           </div>
         </div>
         <div class="hero-scroll">
@@ -1984,7 +1921,7 @@
       })();
       document
         .querySelectorAll(
-          "a, button, .proj-img, .btn-main, .btn-ghost, .nav-cta, .nav-book, .skills-cloud span, .book-cta, .collage-center, .orbit-item",
+          "a, button, .proj-img, .btn-main, .btn-ghost, .nav-cta, .nav-book, .skills-cloud span, .book-cta, .collage-center",
         )
         .forEach((el) => {
           el.addEventListener("mouseenter", () =>
@@ -2319,21 +2256,21 @@
         { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 2.2 },
       );
       gsap.fromTo(
+        ".hero-creds",
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.7, ease: "power2.out", delay: 2.4 },
+      );
+      gsap.fromTo(
         ".hero-ctas",
         { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 2.5 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 2.6 },
       );
       gsap.from(".hero-scroll", { opacity: 0, duration: 0.6, delay: 2.8 });
 
-      /* ═══ HERO COLLAGE — ENTRANCE + ORBIT ═══ */
+      /* ═══ HERO COLLAGE — ENTRANCE ═══ */
       try {
-        var heroCollage = document.querySelector(".hero-collage");
         var collageCenter = document.querySelector(".collage-center");
-        var orbitItems = document.querySelectorAll(".orbit-item");
-        var orbitRing = document.querySelector(".orbit-ring");
-
-        if (heroCollage && collageCenter) {
-          // Center photo entrance — elastic pop
+        if (collageCenter) {
           gsap.from(collageCenter, {
             scale: 0.5,
             opacity: 0,
@@ -2341,129 +2278,6 @@
             ease: "elastic.out(1, 0.5)",
             delay: 1.6,
           });
-
-          // Orbit items entrance — fly in from wide radius
-          var flyRadius = window.innerWidth <= 768 ? 140 : 400;
-          orbitItems.forEach(function (item, i) {
-            var angle = (parseFloat(item.dataset.angle) || 0) * (Math.PI / 180);
-            var fromX = Math.cos(angle) * flyRadius;
-            var fromY = Math.sin(angle) * (flyRadius * 0.875);
-            gsap.fromTo(
-              item,
-              { opacity: 0, x: fromX, y: fromY, scale: 0.4 },
-              {
-                opacity: 1,
-                x: 0,
-                y: 0,
-                scale: 1,
-                duration: 1.0,
-                ease: "power3.out",
-                delay: 2.4 + i * 0.06,
-              },
-            );
-          });
-
-          // Orbital animation + mouse tilt (desktop), orbit only (mobile)
-          if (orbitRing) {
-            var isMobile = window.innerWidth <= 768;
-            var ORBIT_SPEED = isMobile ? 0.04 : 0.05;
-            var orbitAngle = 0;
-            var orbitRX = 175;
-            var orbitRY = 150;
-            var tiltX = 0,
-              tiltY = 0,
-              targetTiltX = 0,
-              targetTiltY = 0;
-            var orbitStarted = false;
-            var orbitPaused = false;
-            var hoveredItem = null;
-
-            function updateOrbit() {
-              if (!orbitPaused) {
-                orbitAngle += ORBIT_SPEED;
-              }
-
-              orbitItems.forEach(function (item) {
-                var baseAngle = parseFloat(item.dataset.angle) || 0;
-                var rad = (baseAngle + orbitAngle) * (Math.PI / 180);
-                var x = Math.cos(rad) * orbitRX;
-                var y = Math.sin(rad) * orbitRY;
-                var depth = (Math.sin(rad) + 1) / 2;
-                var scale = 0.9 + 0.1 * depth;
-                var rotation = Math.cos(rad) * 3;
-
-                // Enlarge hovered item
-                if (item === hoveredItem) {
-                  scale *= 1.25;
-                  item.style.zIndex = 20;
-                } else {
-                  item.style.zIndex = Math.round(depth * 10) + 1;
-                }
-
-                item.style.transform =
-                  "translate(" +
-                  x +
-                  "px," +
-                  y +
-                  "px) scale(" +
-                  scale +
-                  ") rotate(" +
-                  rotation +
-                  "deg)";
-              });
-
-              // Mouse tilt — gentle
-              tiltX += (targetTiltX - tiltX) * 0.04;
-              tiltY += (targetTiltY - tiltY) * 0.04;
-              orbitRing.style.transform =
-                "perspective(800px) rotateX(" +
-                tiltX +
-                "deg) rotateY(" +
-                tiltY +
-                "deg)";
-
-              requestAnimationFrame(updateOrbit);
-            }
-
-            // Hover: pause orbit + enlarge item (desktop only)
-            if (!isMobile) {
-              orbitItems.forEach(function (item) {
-                item.addEventListener("mouseenter", function () {
-                  orbitPaused = true;
-                  hoveredItem = item;
-                });
-                item.addEventListener("mouseleave", function () {
-                  orbitPaused = false;
-                  hoveredItem = null;
-                });
-              });
-
-              document.addEventListener("mousemove", function (e) {
-                if (!orbitStarted) return;
-                var rect = heroCollage.getBoundingClientRect();
-                if (rect.bottom < 0 || rect.top > window.innerHeight) return;
-                var cX = window.innerWidth / 2;
-                var cY = window.innerHeight / 2;
-                targetTiltX = ((e.clientY - cY) / cY) * -4;
-                targetTiltY = ((e.clientX - cX) / cX) * 4;
-              });
-            }
-
-            // Start orbit after entrance completes
-            gsap.delayedCall(3.2, function () {
-              var w = heroCollage.offsetWidth;
-              var h = heroCollage.offsetHeight;
-              if (isMobile) {
-                orbitRX = Math.max(90, Math.min(125, w * 0.32));
-                orbitRY = Math.max(80, Math.min(108, h * 0.32));
-              } else {
-                orbitRX = Math.max(130, Math.min(190, w * 0.32));
-                orbitRY = Math.max(110, Math.min(165, h * 0.28));
-              }
-              orbitStarted = true;
-              updateOrbit();
-            });
-          }
         }
       } catch (e) {
         console.warn("Collage init error:", e);
@@ -2491,6 +2305,20 @@
             scrub: true,
           },
           y: -30,
+          opacity: 0,
+        },
+      );
+      gsap.fromTo(
+        ".hero-creds",
+        { opacity: 1, y: 0 },
+        {
+          scrollTrigger: {
+            trigger: ".hero",
+            start: "top top",
+            end: "35% top",
+            scrub: true,
+          },
+          y: -25,
           opacity: 0,
         },
       );
