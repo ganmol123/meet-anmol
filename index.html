@@ -32,11 +32,21 @@
         box-sizing: border-box;
       }
       :root {
-        --bg: #0a0a0a;
+        /* ═══ OLD COLORS (commented out) ═══ */
+        /* --bg: #0a0a0a;
         --fg: #f0f0f0;
         --dim: #999;
         --accent: #4f46e5;
-        --accent2: #a855f7;
+        --accent2: #a855f7; */
+
+        /* ═══ NEW WAVE PALETTE (toned down warmth) ═══ */
+        --bg: #141516;
+        --fg: #f5f3f0;                    /* soft off-white for headings */
+        --dim: #a8a090;                   /* muted warm gray for subtitles */
+        --body-text: rgba(240, 235, 228, 0.7);  /* soft cream for body */
+        --accent: #b07060;                /* muted terracotta */
+        --accent2: #d4a088;               /* softer coral */
+        --tag-accent: #d4a088;            /* softer coral for tags */
         --radius: 12px;
       }
       html {
@@ -47,11 +57,34 @@
           "Space Grotesk",
           -apple-system,
           sans-serif;
+        /* background: var(--bg); */
         background: var(--bg);
         color: var(--fg);
         overflow-x: hidden;
         cursor: none;
         -webkit-font-smoothing: antialiased;
+      }
+
+      /* ═══ WAVE BACKGROUND ═══ */
+      .wave-bg {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .wave-bg img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+      /* Dark overlay so text is readable (less warm) */
+      .wave-bg::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(18, 20, 22, 0.5);
+        pointer-events: none;
       }
       a {
         color: inherit;
@@ -63,7 +96,8 @@
         display: block;
       }
       ::selection {
-        background: rgba(79, 70, 229, 0.3);
+        /* OLD: background: rgba(79, 70, 229, 0.3); */
+        background: rgba(176, 112, 96, 0.3);
       }
 
       /* ═══ LOADER ═══ */
@@ -71,7 +105,8 @@
         position: fixed;
         inset: 0;
         z-index: 10000;
-        background: var(--bg);
+        /* Dark neutral from --bg */
+        background: #141516;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -152,7 +187,8 @@
           backdrop-filter 0.4s;
       }
       nav.scrolled {
-        background: rgba(10, 10, 10, 0.75);
+        /* OLD: background: rgba(10, 10, 10, 0.75); */
+        background: rgba(20, 21, 22, 0.85);
         backdrop-filter: blur(16px);
         -webkit-backdrop-filter: blur(16px);
       }
@@ -169,7 +205,8 @@
         height: 32px;
         border-radius: 50%;
         object-fit: cover;
-        border: 1.5px solid rgba(255, 255, 255, 0.15);
+        /* OLD: border: 1.5px solid rgba(255, 255, 255, 0.15); */
+        border: 1.5px solid rgba(212, 160, 136, 0.25);
       }
       .nav-right {
         display: flex;
@@ -190,22 +227,27 @@
         font-size: 12px !important;
         font-weight: 600 !important;
         padding: 8px 18px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        /* OLD: border: 1px solid rgba(255, 255, 255, 0.2); */
+        border: 1px solid rgba(212, 160, 136, 0.3);
         border-radius: 980px;
         transition:
           border-color 0.3s,
           background 0.3s;
       }
       .nav-cta:hover {
-        border-color: var(--fg);
-        background: rgba(255, 255, 255, 0.05);
+        /* OLD: border-color: var(--fg); */
+        /* OLD: background: rgba(255, 255, 255, 0.05); */
+        border-color: rgba(212, 160, 136, 0.6);
+        background: rgba(176, 112, 96, 0.1);
       }
       .nav-book {
         opacity: 1 !important;
         font-size: 12px !important;
         font-weight: 600 !important;
         padding: 8px 18px;
-        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        /* OLD: background: linear-gradient(135deg, var(--accent), var(--accent2)); */
+        /* NEW: warm copper/terracotta gradient */
+        background: linear-gradient(135deg, #b07060, #d4a088);
         border-radius: 980px;
         transition:
           opacity 0.3s,
@@ -216,13 +258,14 @@
         transform: translateY(-1px);
       }
 
-      /* ═══ SHADER CANVAS ═══ */
+      /* ═══ SHADER CANVAS (commented out for wave bg) ═══ */
       #shader-bg {
         position: fixed;
         inset: 0;
         z-index: 0;
         opacity: 0.9;
         pointer-events: none;
+        display: none; /* Hidden — using wave background instead */
       }
 
       /* ═══ CONTENT LAYER ═══ */
@@ -262,6 +305,7 @@
         color: var(--dim);
         margin-bottom: 24px;
         overflow: hidden;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
       }
       .hero h1 {
         font-size: clamp(48px, 8vw, 120px);
@@ -277,6 +321,7 @@
       .hero h1 .line-inner {
         display: block;
         transform: translateY(105%);
+        /* OLD SHIMMER — purple/indigo
         background: linear-gradient(
           90deg,
           var(--fg) 0%,
@@ -284,6 +329,17 @@
           rgba(168, 85, 247, 0.9) 48%,
           rgba(255, 255, 255, 1) 50%,
           rgba(79, 70, 229, 0.9) 52%,
+          var(--fg) 65%,
+          var(--fg) 100%
+        ); */
+        /* NEW SHIMMER — muted coral/terracotta */
+        background: linear-gradient(
+          90deg,
+          var(--fg) 0%,
+          var(--fg) 35%,
+          #d4a088 48%,
+          #f5f3f0 50%,
+          #b07060 52%,
           var(--fg) 65%,
           var(--fg) 100%
         );
@@ -306,10 +362,12 @@
       .hero-sub {
         font-size: clamp(16px, 1.8vw, 22px);
         font-weight: 400;
-        color: var(--dim);
+        /* OLD: color: var(--dim); */
+        color: rgba(240, 238, 235, 0.85);  /* brighter for readability */
         margin-top: 28px;
         max-width: 540px;
         line-height: 1.5;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);  /* subtle shadow for separation */
       }
       .hero-creds {
         display: flex;
@@ -323,17 +381,21 @@
         gap: 6px;
         padding: 6px 14px;
         border-radius: 100px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        background: rgba(255, 255, 255, 0.04);
+        /* OLD: border: 1px solid rgba(255, 255, 255, 0.08); */
+        /* OLD: background: rgba(255, 255, 255, 0.04); */
+        border: 1px solid rgba(212, 160, 136, 0.2);
+        background: rgba(176, 112, 96, 0.08);
         font-size: 13px;
         font-weight: 500;
-        color: var(--dim);
+        color: var(--tag-accent);
         letter-spacing: 0.01em;
         transition: border-color 0.3s, background 0.3s;
       }
       .hero-cred:hover {
-        border-color: rgba(79, 70, 229, 0.3);
-        background: rgba(79, 70, 229, 0.06);
+        /* OLD: border-color: rgba(79, 70, 229, 0.3); */
+        /* OLD: background: rgba(79, 70, 229, 0.06); */
+        border-color: rgba(212, 160, 136, 0.4);
+        background: rgba(176, 112, 96, 0.12);
       }
       .hero-cred .cred-highlight {
         color: var(--fg);
@@ -374,14 +436,16 @@
         align-items: center;
         gap: 6px;
         padding: 14px 32px;
-        border: 1px solid rgba(255, 255, 255, 0.15);
+        /* OLD: border: 1px solid rgba(255, 255, 255, 0.15); */
+        border: 1px solid rgba(212, 160, 136, 0.25);
         border-radius: 980px;
         font-size: 15px;
         font-weight: 500;
         transition: border-color 0.3s;
       }
       .btn-ghost:hover {
-        border-color: rgba(255, 255, 255, 0.4);
+        /* OLD: border-color: rgba(255, 255, 255, 0.4); */
+        border-color: rgba(212, 160, 136, 0.5);
       }
       .hero-scroll {
         position: absolute;
@@ -439,10 +503,12 @@
         height: 300px;
         border-radius: 50%;
         overflow: visible;
+        /* OLD: box-shadow: 0 16px 60px rgba(79, 70, 229, 0.25), 0 4px 24px rgba(0, 0, 0, 0.5); */
+        /* NEW: muted coral glow */
         box-shadow:
-          0 16px 60px rgba(79, 70, 229, 0.25),
+          0 16px 60px rgba(176, 112, 96, 0.25),
           0 4px 24px rgba(0, 0, 0, 0.5);
-        border: 2px solid rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(212, 160, 136, 0.15);
         z-index: 5;
         position: relative;
       }
@@ -458,6 +524,7 @@
         position: absolute;
         inset: -6px;
         border-radius: 50%;
+        /* OLD purple gradient
         background: conic-gradient(
           from 0deg,
           rgba(79, 70, 229, 0),
@@ -465,6 +532,15 @@
           rgba(168, 85, 247, 0.6),
           rgba(79, 70, 229, 0.6),
           rgba(79, 70, 229, 0)
+        ); */
+        /* NEW muted coral gradient */
+        background: conic-gradient(
+          from 0deg,
+          rgba(176, 112, 96, 0),
+          rgba(176, 112, 96, 0.5),
+          rgba(212, 160, 136, 0.5),
+          rgba(176, 112, 96, 0.5),
+          rgba(176, 112, 96, 0)
         );
         animation: glowSpin 4s linear infinite;
         z-index: -1;
@@ -475,9 +551,16 @@
         position: absolute;
         inset: -14px;
         border-radius: 50%;
+        /* OLD purple glow
         background: radial-gradient(
           circle,
           rgba(79, 70, 229, 0.2) 60%,
+          transparent 70%
+        ); */
+        /* NEW muted coral glow */
+        background: radial-gradient(
+          circle,
+          rgba(176, 112, 96, 0.2) 60%,
           transparent 70%
         );
         animation: glowPulse 3s ease-in-out infinite;
@@ -506,8 +589,10 @@
       /* ═══ MARQUEE ═══ */
       .marquee {
         padding: 60px 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.06);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        /* OLD: border-top: 1px solid rgba(255, 255, 255, 0.06); */
+        /* OLD: border-bottom: 1px solid rgba(255, 255, 255, 0.06); */
+        border-top: 1px solid rgba(212, 160, 136, 0.1);
+        border-bottom: 1px solid rgba(212, 160, 136, 0.1);
         overflow: hidden;
       }
       .marquee-track {
@@ -558,15 +643,21 @@
       .project {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 24px;
-        margin-bottom: 24px;
+        gap: 40px;
+        margin-bottom: 48px;
+      }
+      .proj-card {
+        display: flex;
+        flex-direction: column;
       }
       .proj-img {
         border-radius: var(--radius);
         overflow: hidden;
         position: relative;
-        background: #141414;
-        border: 1px solid rgba(255, 255, 255, 0.06);
+        /* OLD: background: #141414; */
+        background: rgba(20, 21, 22, 0.8);
+        /* OLD: border: 1px solid rgba(255, 255, 255, 0.06); */
+        border: 1px solid rgba(212, 160, 136, 0.1);
       }
       .proj-img a {
         display: block;
@@ -579,12 +670,13 @@
         transition:
           transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
           filter 0.8s;
-        filter: grayscale(0.2) brightness(0.9);
+        filter: grayscale(0.1) brightness(0.95);
       }
       .proj-img:hover img {
-        transform: scale(1.04);
+        transform: scale(1.03);
         filter: grayscale(0) brightness(1);
       }
+      /* OLD overlay styles (was absolute positioned on image)
       .proj-overlay {
         position: absolute;
         bottom: 0;
@@ -593,26 +685,32 @@
         padding: 32px;
         background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
         pointer-events: none;
+      } */
+
+      /* NEW: Text below image */
+      .proj-info {
+        padding: 20px 4px;
       }
-      .proj-overlay .label {
+      .proj-info .label {
         font-size: 11px;
         font-weight: 600;
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.5);
-        margin-bottom: 6px;
+        color: var(--dim);
+        margin-bottom: 8px;
       }
-      .proj-overlay h3 {
-        font-size: clamp(20px, 2.5vw, 32px);
+      .proj-info h3 {
+        font-size: clamp(18px, 2vw, 26px);
         font-weight: 700;
         letter-spacing: -0.02em;
+        color: var(--fg);
       }
-      .proj-overlay .desc {
+      .proj-info .desc {
         font-size: 14px;
-        color: rgba(255, 255, 255, 0.5);
-        margin-top: 8px;
-        max-width: 400px;
-        line-height: 1.5;
+        color: rgba(212, 160, 136, 0.7);
+        margin-top: 10px;
+        max-width: 500px;
+        line-height: 1.6;
       }
 
       /* ═══ EXPERIENCE ═══ */
@@ -622,14 +720,16 @@
       }
       .exp-row {
         padding: 28px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        /* OLD: border-bottom: 1px solid rgba(255, 255, 255, 0.06); */
+        border-bottom: 1px solid rgba(212, 160, 136, 0.1);
         display: grid;
         grid-template-columns: 1fr auto;
         gap: 20px;
         align-items: start;
       }
       .exp-row:first-child {
-        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        /* OLD: border-top: 1px solid rgba(255, 255, 255, 0.06); */
+        border-top: 1px solid rgba(212, 160, 136, 0.1);
       }
       .exp-company {
         font-size: 18px;
@@ -673,7 +773,8 @@
         font-size: 14px;
         font-weight: 500;
         padding: 10px 20px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        /* OLD: border: 1px solid rgba(255, 255, 255, 0.08); */
+        border: 1px solid rgba(212, 160, 136, 0.15);
         border-radius: 980px;
         color: var(--dim);
         transition:
@@ -683,14 +784,16 @@
       }
       .skills-cloud span:hover {
         color: var(--fg);
-        border-color: rgba(255, 255, 255, 0.25);
+        /* OLD: border-color: rgba(255, 255, 255, 0.25); */
+        border-color: rgba(212, 160, 136, 0.4);
         transform: translateY(-2px);
       }
 
       /* ═══ ABOUT ═══ */
       .about-section {
         padding: 140px 48px;
-        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        /* OLD: border-top: 1px solid rgba(255, 255, 255, 0.06); */
+        border-top: 1px solid rgba(212, 160, 136, 0.1);
       }
       .about-inner {
         max-width: 600px;
@@ -720,10 +823,12 @@
       }
       .edu-row {
         padding: 20px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        /* OLD: border-bottom: 1px solid rgba(255, 255, 255, 0.06); */
+        border-bottom: 1px solid rgba(212, 160, 136, 0.1);
       }
       .edu-row:first-child {
-        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        /* OLD: border-top: 1px solid rgba(255, 255, 255, 0.06); */
+        border-top: 1px solid rgba(212, 160, 136, 0.1);
       }
       .edu-school {
         font-size: 17px;
@@ -743,15 +848,24 @@
       /* ═══ CONTACT ═══ */
       .contact {
         padding: 140px 48px;
-        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        border-top: 1px solid rgba(212, 160, 136, 0.1);
         position: relative;
         z-index: 2;
+        /* OLD purple gradient
         background: linear-gradient(
           180deg,
           transparent 0%,
           rgba(3, 1, 8, 0.6) 15%,
           rgba(3, 1, 8, 0.85) 40%,
           rgba(3, 1, 8, 0.95) 100%
+        ); */
+        /* NEW warm brown gradient */
+        background: linear-gradient(
+          180deg,
+          transparent 0%,
+          rgba(20, 21, 22, 0.6) 15%,
+          rgba(20, 21, 22, 0.85) 40%,
+          rgba(20, 21, 22, 0.95) 100%
         );
       }
       .contact h2 {
@@ -761,7 +875,9 @@
         line-height: 0.95;
       }
       .contact h2 a {
-        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        /* OLD: background: linear-gradient(135deg, var(--accent), var(--accent2)); */
+        /* NEW: warm copper/terracotta gradient */
+        background: linear-gradient(135deg, #b07060, #d4a088);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -780,30 +896,37 @@
         font-size: 14px;
         font-weight: 500;
         padding: 12px 24px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        /* OLD: border: 1px solid rgba(255, 255, 255, 0.1); */
+        border: 1px solid rgba(212, 160, 136, 0.2);
         border-radius: 980px;
         transition:
           border-color 0.3s,
           background 0.3s;
       }
       .contact-row a:hover {
-        border-color: rgba(255, 255, 255, 0.3);
-        background: rgba(255, 255, 255, 0.03);
+        /* OLD: border-color: rgba(255, 255, 255, 0.3); */
+        /* OLD: background: rgba(255, 255, 255, 0.03); */
+        border-color: rgba(212, 160, 136, 0.4);
+        background: rgba(176, 112, 96, 0.08);
       }
       .contact-row .book-cta {
-        border-color: var(--accent);
+        /* OLD: border-color: var(--accent); */
+        border-color: #b07060;
+        /* OLD: background: linear-gradient(135deg, rgba(79, 70, 229, 0.12), rgba(168, 85, 247, 0.12)); */
         background: linear-gradient(
           135deg,
-          rgba(79, 70, 229, 0.12),
-          rgba(168, 85, 247, 0.12)
+          rgba(176, 112, 96, 0.15),
+          rgba(212, 160, 136, 0.15)
         );
       }
       .contact-row .book-cta:hover {
-        border-color: var(--accent2);
+        /* OLD: border-color: var(--accent2); */
+        border-color: #d4a088;
+        /* OLD: background: linear-gradient(135deg, rgba(79, 70, 229, 0.2), rgba(168, 85, 247, 0.2)); */
         background: linear-gradient(
           135deg,
-          rgba(79, 70, 229, 0.2),
-          rgba(168, 85, 247, 0.2)
+          rgba(176, 112, 96, 0.25),
+          rgba(212, 160, 136, 0.25)
         );
       }
 
@@ -811,11 +934,13 @@
       footer {
         padding: 24px 48px;
         font-size: 12px;
-        color: rgba(255, 255, 255, 0.25);
+        /* OLD: color: rgba(255, 255, 255, 0.25); */
+        color: rgba(212, 160, 136, 0.35);
         border-top: none;
         position: relative;
         z-index: 2;
-        background: rgba(3, 1, 8, 0.95);
+        /* OLD: background: rgba(3, 1, 8, 0.95); */
+        background: rgba(20, 21, 22, 0.95);
       }
 
       /* ═══ RESPONSIVE ═══ */
@@ -831,6 +956,10 @@
         .collage-center {
           width: 260px;
           height: 260px;
+        }
+        /* Wave bg adjustment for tablet */
+        .wave-bg img {
+          object-position: 40% center;
         }
         .section-head {
           padding: 100px 32px 60px;
@@ -868,20 +997,30 @@
           font-size: 11px !important;
         }
 
-        /* ── ANIMATED GRADIENT BACKGROUND ── */
+        /* ── BACKGROUND (using wave image) ── */
         body {
-          background: #030108;
+          /* OLD: background: #030108; */
+          background: #141516;
           cursor: auto;
         }
 
-        /* Animated aurora layer — replaces WebGL shader on mobile */
+        /* Wave background adjustments for mobile */
+        .wave-bg img {
+          object-position: 35% center;  /* shift to show wave on mobile */
+        }
+        .wave-bg::after {
+          background: rgba(18, 20, 22, 0.55);  /* slightly darker overlay for mobile readability */
+        }
+
+        /* Animated aurora layer — hidden, using wave bg instead */
         .mobile-aurora {
-          display: block;
+          display: none !important;
+          /* OLD: display: block;
           position: fixed;
           inset: 0;
           z-index: 0;
           pointer-events: none;
-          overflow: hidden;
+          overflow: hidden; */
         }
         .mobile-aurora::before {
           content: "";
@@ -965,12 +1104,14 @@
         }
 
         /* ── DIAGONAL LIGHT RAY (CSS) ── */
+        /* Hidden — using wave bg instead */
         .mobile-ray {
-          display: block;
+          display: none !important;
+          /* OLD: display: block;
           position: fixed;
           inset: 0;
           z-index: 0;
-          pointer-events: none;
+          pointer-events: none; */
           overflow: hidden;
         }
         .mobile-ray::before {
@@ -1024,12 +1165,14 @@
         }
 
         /* ── CSS FLOATING PARTICLES ── */
+        /* Hidden — using wave bg instead */
         .mobile-particles {
-          display: block;
+          display: none !important;
+          /* OLD: display: block;
           position: fixed;
           inset: 0;
           z-index: 0;
-          pointer-events: none;
+          pointer-events: none; */
           overflow: hidden;
         }
         .mobile-particles span {
@@ -1217,6 +1360,7 @@
           margin-top: 18px;
           max-width: 100%;
           line-height: 1.6;
+          text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);  /* stronger shadow on mobile */
         }
         .hero-creds {
           margin-top: 18px;
@@ -1269,18 +1413,18 @@
         }
         .project {
           grid-template-columns: 1fr;
-          gap: 16px;
-          margin-bottom: 16px;
+          gap: 32px;
+          margin-bottom: 32px;
         }
-        .proj-overlay {
-          padding: 20px;
+        .proj-info {
+          padding: 16px 0;
         }
-        .proj-overlay h3 {
-          font-size: 20px;
+        .proj-info h3 {
+          font-size: 18px;
         }
-        .proj-overlay .desc {
+        .proj-info .desc {
           font-size: 13px;
-          margin-top: 4px;
+          margin-top: 8px;
         }
 
         .experience {
@@ -1381,6 +1525,9 @@
         .hero h1 {
           font-size: 38px;
         }
+        .hero-sub {
+          font-size: 14px;
+        }
         .collage-center {
           width: 160px;
           height: 160px;
@@ -1400,6 +1547,14 @@
           padding: 4px 8px;
         }
 
+        /* Wave bg for small screens */
+        .wave-bg img {
+          object-position: 30% center;
+        }
+        .wave-bg::after {
+          background: rgba(18, 20, 22, 0.6);  /* darker for small screens */
+        }
+
         .section-head,
         .projects,
         .experience,
@@ -1409,6 +1564,38 @@
         .contact {
           padding-left: 16px;
           padding-right: 16px;
+        }
+      }
+
+      /* ═══ MOBILE LANDSCAPE ═══ */
+      @media (max-width: 900px) and (orientation: landscape) {
+        .hero {
+          min-height: auto;
+          padding: 100px 32px 60px;
+          grid-template-columns: 1.2fr 1fr;
+          grid-template-rows: auto;
+          align-items: center;
+        }
+        .hero-text {
+          order: 0;
+        }
+        .hero-collage {
+          order: 1;
+          margin-top: 0;
+          min-height: auto;
+        }
+        .collage-center {
+          width: 180px;
+          height: 180px;
+        }
+        .hero h1 {
+          font-size: clamp(36px, 8vw, 56px);
+        }
+        .hero-sub {
+          font-size: 14px;
+        }
+        .wave-bg img {
+          object-position: center center;
         }
       }
 
@@ -1449,12 +1636,14 @@
         width: 100%;
         height: 100%;
         min-height: 300px;
-        background: #141414;
+        /* OLD: background: #141414; */
+        background: rgba(20, 21, 22, 0.8);
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 14px;
-        color: rgba(255, 255, 255, 0.15);
+        /* OLD: color: rgba(255, 255, 255, 0.15); */
+        color: rgba(212, 160, 136, 0.25);
       }
     </style>
   </head>
@@ -1467,21 +1656,26 @@
     <!-- GRAIN OVERLAY -->
     <div class="grain"></div>
 
-    <!-- MOBILE EFFECTS (hidden on desktop via CSS) -->
-    <div class="mobile-aurora"></div>
+    <!-- MOBILE EFFECTS (hidden — using wave background) -->
+    <!-- <div class="mobile-aurora"></div>
     <div class="mobile-ray"></div>
     <div class="mobile-particles">
       <span></span><span></span><span></span><span></span><span></span>
       <span></span><span></span><span></span><span></span><span></span>
       <span></span><span></span><span></span><span></span><span></span>
-    </div>
+    </div> -->
 
     <!-- CURSOR -->
     <div class="cursor" id="cursor"></div>
     <div class="cursor-dot" id="cursor-dot"></div>
 
-    <!-- SHADER BG -->
+    <!-- SHADER BG (hidden — using wave background) -->
     <canvas id="shader-bg"></canvas>
+
+    <!-- WAVE BACKGROUND IMAGE -->
+    <div class="wave-bg">
+      <img src="images/wave-bg.jpeg" alt="" />
+    </div>
 
     <!-- NAV -->
     <nav id="mainNav">
@@ -1597,37 +1791,42 @@
         <div class="projects">
           <!-- Row 1: Yolgen + StoresData -->
           <div class="project">
-            <div class="proj-img">
-              <a href="https://yolexlabs.com" target="_blank">
-                <img
-                  src="images/yolgen.png"
-                  alt="Yolgen — AI-driven hiring simulations"
-                  loading="lazy"
-                />
-              </a>
-              <div class="proj-overlay">
+            <div class="proj-card">
+              <div class="proj-img">
+                <a href="https://yolexlabs.com" target="_blank">
+                  <img
+                    src="images/yolgen.png"
+                    alt="Yolgen — AI-driven hiring simulations"
+                    loading="lazy"
+                  />
+                </a>
+              </div>
+              <div class="proj-info">
                 <div class="label">2025 — Present · AI Hiring</div>
                 <h3>Yolgen</h3>
                 <div class="desc">
                   AI-driven job simulations that reveal who truly thrives — not
-                  who interviews best.
+                  who interviews best. Built with real-time evaluation engines
+                  and adaptive difficulty scaling.
                 </div>
               </div>
             </div>
-            <div class="proj-img">
-              <a href="https://storesdata.com" target="_blank">
-                <img
-                  src="images/storesdata.png"
-                  alt="StoresData — Ecommerce intelligence platform"
-                  loading="lazy"
-                />
-              </a>
-              <div class="proj-overlay">
+            <div class="proj-card">
+              <div class="proj-img">
+                <a href="https://storesdata.com" target="_blank">
+                  <img
+                    src="images/storesdata.png"
+                    alt="StoresData — Ecommerce intelligence platform"
+                    loading="lazy"
+                  />
+                </a>
+              </div>
+              <div class="proj-info">
                 <div class="label">2025 · Ecommerce Intelligence</div>
                 <h3>StoresData</h3>
                 <div class="desc">
                   Distributed pipelines processing 5M+ Shopify stores. Cut
-                  storage costs 50%.
+                  storage costs 50% with smart data partitioning and incremental syncs.
                 </div>
               </div>
             </div>
@@ -1635,36 +1834,41 @@
 
           <!-- Row 2: Arka + Zign -->
           <div class="project">
-            <div class="proj-img">
-              <a href="#contact">
-                <img
-                  src="images/arka.png"
-                  alt="Arka — Legal tech AI contract analysis"
-                  loading="lazy"
-                />
-              </a>
-              <div class="proj-overlay">
+            <div class="proj-card">
+              <div class="proj-img">
+                <a href="#contact">
+                  <img
+                    src="images/arka.png"
+                    alt="Arka — Legal tech AI contract analysis"
+                    loading="lazy"
+                  />
+                </a>
+              </div>
+              <div class="proj-info">
                 <div class="label">2025 — Present · Legal Tech AI</div>
                 <h3>Arka</h3>
                 <div class="desc">
                   Reads every clause, flags risks, checks compliance. Your
-                  analysis, automated.
+                  analysis, automated. Multi-document reasoning with citation tracking.
                 </div>
               </div>
             </div>
-            <div class="proj-img">
-              <a href="#contact">
-                <img
-                  src="images/zign.png"
-                  alt="Zign — AI-guided document signing"
-                  loading="lazy"
-                />
-              </a>
-              <div class="proj-overlay">
+            <div class="proj-card">
+              <div class="proj-img">
+                <a href="#contact">
+                  <img
+                    src="images/zign.png"
+                    alt="Zign — AI-guided document signing"
+                    loading="lazy"
+                  />
+                </a>
+              </div>
+              <div class="proj-info">
                 <div class="label">2025 · Document Signing</div>
                 <h3>Zign</h3>
                 <div class="desc">
-                  AI-guided, compliance-first document signing. Reimagined.
+                  AI-guided, compliance-first document signing. Reimagined with
+                  smart field detection and audit trails built in.
                 </div>
               </div>
             </div>
@@ -1922,7 +2126,7 @@
       })();
       document
         .querySelectorAll(
-          "a, button, .proj-img, .btn-main, .btn-ghost, .nav-cta, .nav-book, .skills-cloud span, .book-cta, .collage-center",
+          "a, button, .proj-card, .btn-main, .btn-ghost, .nav-cta, .nav-book, .skills-cloud span, .book-cta, .collage-center",
         )
         .forEach((el) => {
           el.addEventListener("mouseenter", () =>
@@ -2363,10 +2567,10 @@
       });
 
       // Project images — staggered reveal with varying params
-      gsap.utils.toArray(".proj-img").forEach((img, i) => {
-        gsap.from(img, {
+      gsap.utils.toArray(".proj-card").forEach((card, i) => {
+        gsap.from(card, {
           scrollTrigger: {
-            trigger: img,
+            trigger: card,
             start: "top 90%",
             toggleActions: "play none none reverse",
           },
