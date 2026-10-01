@@ -95,61 +95,73 @@
         transform: translate3d(var(--px, 0px), var(--py, 0px), 0);
         will-change: transform;
       }
-      /* slow "breathing" camera drift over the painting */
+      /* slow, endless orbit over the painting — returns to its start,
+         so the loop never visibly reverses */
       .backdrop-img {
         position: absolute;
         inset: 0;
         background: var(--bg-img) center / cover no-repeat;
-        animation: drift 48s ease-in-out infinite alternate;
+        animation: orbit 90s linear infinite;
         will-change: transform;
       }
-      @keyframes drift {
-        from {
-          transform: scale(1.02) translate3d(0, 0, 0);
+      @keyframes orbit {
+        0%,
+        100% {
+          transform: scale(1.045) translate3d(0, 0, 0);
         }
-        to {
-          transform: scale(1.1) translate3d(-1.6%, -1.2%, 0);
+        25% {
+          transform: scale(1.06) translate3d(-0.7%, -0.35%, 0);
+        }
+        50% {
+          transform: scale(1.07) translate3d(-0.2%, -0.8%, 0);
+        }
+        75% {
+          transform: scale(1.055) translate3d(0.5%, -0.3%, 0);
         }
       }
-      /* mist banks rolling over the water */
+      /* mist conveyor: a repeating band slid by -50%, a whole number of
+         tiles (tile widths must divide 50%), so it loops seamlessly */
       .mist {
         position: absolute;
-        left: -40%;
-        width: 180%;
+        left: 0;
+        width: 200%;
         pointer-events: none;
-        background: radial-gradient(
-          ellipse at center,
-          rgba(255, 255, 255, 0.75) 0%,
-          rgba(255, 255, 255, 0.35) 38%,
-          rgba(255, 255, 255, 0) 70%
+        background-image: radial-gradient(
+          ellipse 50% 50% at 50% 50%,
+          rgba(255, 255, 255, 0.7) 0%,
+          rgba(255, 255, 255, 0.3) 45%,
+          rgba(255, 255, 255, 0) 72%
         );
-        filter: blur(18px);
+        background-size: 25% 100%;
+        background-repeat: repeat-x;
+        filter: blur(22px);
         will-change: transform;
+        animation: mist-flow linear infinite;
       }
       .mist-1 {
-        top: 46%;
-        height: 26%;
-        opacity: 0.7;
-        animation: mist 46s ease-in-out infinite alternate;
+        top: 48%;
+        height: 24%;
+        opacity: 0.5;
+        animation-duration: 140s;
       }
       .mist-2 {
-        top: 62%;
-        height: 20%;
-        opacity: 0.55;
-        animation: mist 64s ease-in-out -20s infinite alternate-reverse;
+        top: 63%;
+        height: 18%;
+        opacity: 0.4;
+        background-size: 50% 100%;
+        animation-duration: 200s;
+        animation-direction: reverse;
       }
       .mist-3 {
-        top: 28%;
-        height: 18%;
-        opacity: 0.35;
-        animation: mist 80s ease-in-out -35s infinite alternate;
+        top: 30%;
+        height: 16%;
+        opacity: 0.25;
+        background-size: 16.6667% 100%;
+        animation-duration: 260s;
       }
-      @keyframes mist {
-        from {
-          transform: translate3d(-12%, 0, 0) scaleY(1);
-        }
+      @keyframes mist-flow {
         to {
-          transform: translate3d(14%, -6%, 0) scaleY(1.15);
+          transform: translate3d(-50%, 0, 0);
         }
       }
       /* soft paper wash so text stays readable */
@@ -1085,27 +1097,6 @@
 
           <article class="job reveal">
             <div class="job-meta">
-              <div class="when">2022 — 2024</div>
-              <div>Remote</div>
-            </div>
-            <div>
-              <h3>ITP Western Express</h3>
-              <div class="role">Technical Consultant</div>
-              <ul>
-                <li>
-                  Reduced recruitment costs <strong>60%</strong> by building a
-                  custom ATS with Node.js, MongoDB and GCP.
-                </li>
-                <li>
-                  Drove a <strong>15%</strong> lift in user retention by mentoring a
-                  frontend intern to ship a React landing page.
-                </li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="job reveal">
-            <div class="job-meta">
               <div class="when">May — Aug 2022</div>
               <div>Remote</div>
             </div>
@@ -1369,17 +1360,17 @@
           window.addEventListener(
             "pointermove",
             function (e) {
-              tx = (e.clientX / window.innerWidth - 0.5) * -22;
-              ty = (e.clientY / window.innerHeight - 0.5) * -14;
+              tx = (e.clientX / window.innerWidth - 0.5) * -10;
+              ty = (e.clientY / window.innerHeight - 0.5) * -6;
             },
             { passive: true }
           );
         }
         function tick() {
           var scrollShift =
-            Math.min(window.scrollY / window.innerHeight, 3) * -12;
-          x += (tx - x) * 0.05;
-          y += (ty + scrollShift - y) * 0.05;
+            Math.min(window.scrollY / window.innerHeight, 3) * -6;
+          x += (tx - x) * 0.03;
+          y += (ty + scrollShift - y) * 0.03;
           layer.style.setProperty("--px", x.toFixed(2) + "px");
           layer.style.setProperty("--py", y.toFixed(2) + "px");
           requestAnimationFrame(tick);
@@ -1403,7 +1394,7 @@
           canvas.width = w * dpr;
           canvas.height = h * dpr;
           ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-          var target = Math.round(Math.min(Math.max(w / 42, 14), 38));
+          var target = Math.round(Math.min(Math.max(w / 90, 8), 18));
           while (petals.length < target) petals.push(makePetal(true));
           petals.length = target;
         }
@@ -1412,17 +1403,17 @@
           return {
             x: anywhere ? Math.random() * w : Math.random() * w * 0.7 - w * 0.1,
             y: anywhere ? Math.random() * h : -20 - Math.random() * h * 0.3,
-            size: 5 + Math.random() * 7,
-            vy: 0.35 + Math.random() * 0.65,
-            vx: 0.15 + Math.random() * 0.45,
-            spin: (Math.random() - 0.5) * 0.03,
+            size: 3.5 + Math.random() * 4.5,
+            vy: 0.18 + Math.random() * 0.32,
+            vx: 0.08 + Math.random() * 0.22,
+            spin: (Math.random() - 0.5) * 0.015,
             angle: Math.random() * Math.PI * 2,
             flip: Math.random() * Math.PI * 2,
-            flipSpeed: 0.01 + Math.random() * 0.025,
+            flipSpeed: 0.006 + Math.random() * 0.012,
             swayPhase: Math.random() * Math.PI * 2,
-            swayAmp: 0.4 + Math.random() * 0.9,
+            swayAmp: 0.25 + Math.random() * 0.5,
             color: colors[(Math.random() * colors.length) | 0],
-            alpha: 0.55 + Math.random() * 0.4,
+            alpha: 0.35 + Math.random() * 0.35,
           };
         }
 
@@ -1451,7 +1442,7 @@
           var gust = 0.6 + Math.sin(t * 0.004) * 0.4; // gentle, changing breeze
           for (var i = 0; i < petals.length; i++) {
             var p = petals[i];
-            p.x += p.vx * gust + Math.sin(t * 0.02 + p.swayPhase) * p.swayAmp * 0.5;
+            p.x += p.vx * gust + Math.sin(t * 0.012 + p.swayPhase) * p.swayAmp * 0.5;
             p.y += p.vy;
             p.angle += p.spin;
             p.flip += p.flipSpeed;
