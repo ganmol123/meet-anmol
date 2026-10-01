@@ -3,19 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Anmol Gupta — Founding Engineer</title>
+    <title>Anmol Gupta | Founding Engineer</title>
     <meta
       name="description"
-      content="Anmol Gupta — founding engineer building AI products end to end: real-time voice agents, LLM evaluation, and event-sourced backends."
+      content="Anmol Gupta, founding engineer building AI products end to end: real-time voice agents, LLM evaluation, and event-sourced backends."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://meet-anmol.com/" />
-    <meta property="og:title" content="Anmol Gupta — Founding Engineer" />
+    <meta property="og:title" content="Anmol Gupta | Founding Engineer" />
     <meta
       property="og:description"
       content="Building AI products end to end: real-time voice agents, LLM evaluation, and event-sourced backends."
     />
-    <meta property="og:image" content="https://meet-anmol.com/images/anmol-istanbul.jpg" />
+    <meta property="og:image" content="https://meet-anmol.com/images/anmol-halong.jpg" />
     <meta name="twitter:card" content="summary" />
     <meta name="theme-color" content="#f4f1e9" />
     <link rel="icon" href="images/anmol-avatar.jpg" />
@@ -26,7 +26,7 @@
       rel="stylesheet"
     />
     <link rel="preload" as="image" href="images/bg-bamboo.webp" />
-    <link rel="preload" as="image" href="images/anmol-istanbul.jpg" />
+    <link rel="preload" as="image" href="images/anmol-halong.jpg" />
     <style>
       *,
       *::before,
@@ -36,7 +36,7 @@
         box-sizing: border-box;
       }
 
-      /* ═══ PALETTE — sampled from the bamboo & blossom painting ═══ */
+      /* ═══ PALETTE: sampled from the bamboo & blossom painting ═══ */
       :root {
         --bg-img: url("images/bg-bamboo.webp");
         --paper: #f4f1e9;
@@ -95,7 +95,7 @@
         transform: translate3d(var(--px, 0px), var(--py, 0px), 0);
         will-change: transform;
       }
-      /* slow, endless orbit over the painting — returns to its start,
+      /* slow, endless orbit over the painting; returns to its start,
          so the loop never visibly reverses */
       .backdrop-img {
         position: absolute;
@@ -357,24 +357,29 @@
         width: min(400px, 80vw);
         aspect-ratio: 1;
       }
+      /* the photo dissolves into the painting instead of sitting in a frame */
       .portrait img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        border-radius: 50%;
-        box-shadow: 0 30px 80px rgba(var(--ink-rgb), 0.22);
-      }
-      .portrait::before {
-        content: "";
-        position: absolute;
-        inset: -14px;
-        border-radius: 50%;
-        border: 1px solid rgba(var(--ink-rgb), 0.28);
+        filter: saturate(0.85) sepia(0.08) brightness(1.03);
+        -webkit-mask-image: radial-gradient(
+          circle at 50% 50%,
+          #000 58%,
+          rgba(0, 0, 0, 0.6) 64%,
+          transparent 71%
+        );
+        mask-image: radial-gradient(
+          circle at 50% 50%,
+          #000 58%,
+          rgba(0, 0, 0, 0.6) 64%,
+          transparent 71%
+        );
       }
       .portrait-tag {
         position: absolute;
-        right: 2%;
-        bottom: 6%;
+        right: 8%;
+        bottom: 10%;
         font-size: 12px;
         padding: 6px 12px;
         border-radius: 999px;
@@ -904,8 +909,8 @@
           <p class="eyebrow">Founding Engineer · AI Products</p>
           <h1>Anmol<br /><em>Gupta</em></h1>
           <p class="hero-sub">
-            I build AI products end to end — real-time voice agents, LLM
-            evaluation, and event-sourced backends — from first commit to
+            I build AI products end to end: real-time voice agents, LLM
+            evaluation, and event-sourced backends, from first commit to
             enterprise pilots.
           </p>
           <div class="creds">
@@ -926,12 +931,12 @@
         </div>
         <div class="portrait">
           <img
-            src="images/anmol-istanbul.jpg"
-            alt="Anmol Gupta in Istanbul, with the New Mosque in the background"
+            src="images/anmol-halong.jpg"
+            alt="Anmol Gupta at Ha Long Bay, Vietnam, with limestone peaks over the water"
             width="800"
             height="800"
           />
-          <span class="portrait-tag">Istanbul, 2026</span>
+          <span class="portrait-tag">Ha Long Bay, Vietnam</span>
         </div>
       </header>
 
@@ -941,7 +946,7 @@
           <div class="section-head reveal">
             <h2 id="highlights-title">Five years, <em>shipping.</em></h2>
             <p>
-              Founding engineer at early-stage startups since 2020 — owning
+              Founding engineer at early-stage startups since 2020, owning
               products across the full stack, from infra to evals.
             </p>
           </div>
@@ -973,7 +978,7 @@
 
           <article class="job reveal">
             <div class="job-meta">
-              <div class="when">Nov 2025 — Present</div>
+              <div class="when">Nov 2025 to Present</div>
               <div>Remote</div>
             </div>
             <div>
@@ -987,7 +992,7 @@
               </p>
               <ul>
                 <li>
-                  Shipped Candoor <strong>single-handedly in 26 days</strong> — an
+                  Shipped Candoor <strong>single-handedly in 26 days</strong>: an
                   F#/Akka event-sourced core, real-time voice interviewer, LLM
                   de-identification and theme clustering, and eval harnesses for
                   every AI step.
@@ -1000,7 +1005,7 @@
                 </li>
                 <li>
                   Built a position-aware <strong>LLM evaluation pipeline</strong>
-                  extending G-Eval — judge models score role-specific rubrics over
+                  extending G-Eval, where judge models score role-specific rubrics over
                   transcripts, canvas state and tool traces.
                 </li>
                 <li>
@@ -1015,7 +1020,7 @@
                 </li>
                 <li>
                   Rebuilt <strong>100% of production infrastructure</strong> solo in
-                  under a week — hosting, DNS, TLS, CI/CD, backups, OAuth — with
+                  under a week (hosting, DNS, TLS, CI/CD, backups, OAuth) with
                   zero data loss.
                 </li>
                 <li>
@@ -1033,7 +1038,7 @@
 
           <article class="job reveal">
             <div class="job-meta">
-              <div class="when">Feb 2024 — Dec 2025</div>
+              <div class="when">Feb 2024 to Dec 2025</div>
               <div>Remote · Contract</div>
             </div>
             <div>
@@ -1068,7 +1073,7 @@
 
           <article class="job reveal">
             <div class="job-meta">
-              <div class="when">Sep 2023 — Dec 2024</div>
+              <div class="when">Sep 2023 to Dec 2024</div>
               <div>Los Angeles</div>
             </div>
             <div>
@@ -1097,7 +1102,7 @@
 
           <article class="job reveal">
             <div class="job-meta">
-              <div class="when">May — Aug 2022</div>
+              <div class="when">May to Aug 2022</div>
               <div>Remote</div>
             </div>
             <div>
@@ -1126,7 +1131,7 @@
 
           <article class="job reveal">
             <div class="job-meta">
-              <div class="when">Aug 2020 — May 2021</div>
+              <div class="when">Aug 2020 to May 2021</div>
               <div>Kolkata</div>
             </div>
             <div>
@@ -1209,19 +1214,19 @@
               I grew up in India, spent a semester in <strong>South Korea</strong>,
               a summer doing AI research in <strong>Taiwan</strong>, then moved to
               the <strong>US</strong> for my master's. After three years building
-              across LA, Chicago, and Colorado — I moved back.
+              across LA, Chicago, and Colorado, I moved back.
             </p>
             <p>
               <strong>20+ countries</strong> and counting. I ship from wherever I
               am, work across time zones, and stay at the cutting edge of what's
-              possible with AI. The constant — building things that matter.
+              possible with AI. The constant: building things that matter.
             </p>
           </div>
           <div class="gallery">
             <button class="gallery-item" type="button"><img src="images/gallery/golden-gate.jpg" alt="Anmol on a beach with the Golden Gate Bridge behind" width="1050" height="1400" loading="lazy" /></button>
             <button class="gallery-item" type="button"><img src="images/gallery/desert-ride.jpg" alt="Anmol on a motorcycle on a high desert mountain road" width="1400" height="1050" loading="lazy" /></button>
             <button class="gallery-item" type="button"><img src="images/gallery/mountain-ridge.jpg" alt="Anmol looking out over a mountain valley" width="1050" height="1400" loading="lazy" /></button>
-            <button class="gallery-item" type="button"><img src="images/gallery/ha-long-bay.jpg" alt="Anmol at Ha Long Bay, Vietnam" width="1280" height="960" loading="lazy" /></button>
+            <button class="gallery-item" type="button"><img src="images/anmol-istanbul.jpg" alt="Anmol in Istanbul, with the New Mosque in the background" width="800" height="800" loading="lazy" /></button>
             <button class="gallery-item" type="button"><img src="images/gallery/grassland.jpg" alt="Anmol with a friend in a red shuka on open grassland" width="1050" height="1400" loading="lazy" /></button>
             <button class="gallery-item" type="button"><img src="images/gallery/overlook.jpg" alt="Anmol at a hilltop overlook above green plains" width="1050" height="1400" loading="lazy" /></button>
             <button class="gallery-item" type="button"><img src="images/gallery/lotus-lake.jpg" alt="Selfie in front of a lake covered in lotus leaves" width="1400" height="1050" loading="lazy" /></button>
@@ -1238,11 +1243,11 @@
               <h2>Education.</h2>
               <div class="entry">
                 <h3>Indiana University Bloomington</h3>
-                <p>MS, Computer Science · 2021 — 2023</p>
+                <p>MS, Computer Science · 2021 to 2023</p>
               </div>
               <div class="entry">
                 <h3>SRMIST, Chennai</h3>
-                <p>B.Tech, Information Technology · 2016 — 2020</p>
+                <p>B.Tech, Information Technology · 2016 to 2020</p>
               </div>
               <div class="entry">
                 <h3>Sungkyunkwan University, Seoul</h3>
@@ -1350,7 +1355,7 @@
         "(prefers-reduced-motion: reduce)"
       ).matches;
 
-      // Backdrop parallax — follows the pointer and drifts with scroll
+      // Backdrop parallax: follows the pointer and drifts with scroll
       (function () {
         if (reduceMotion) return;
         var layer = document.querySelector(".backdrop-layer");
